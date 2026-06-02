@@ -16,6 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const consoleNote = document.getElementById("consoleNote");
   const consoleMeter = document.querySelector(".console-meter");
 
+  document.querySelectorAll(".hero h1, .section-head h2").forEach((heading) => {
+  heading.setAttribute("data-text", heading.textContent.trim());
+
+  heading.addEventListener("mouseenter", () => {
+    heading.classList.add("glitching");
+    setTimeout(() => heading.classList.remove("glitching"), 180);
+  });
+});
+  
   document.addEventListener("pointermove", (event) => {
     if (!cursor) return;
     cursor.style.opacity = "1";
@@ -79,6 +88,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   reveals.forEach((item) => revealObserver.observe(item));
 
+  const navBeam = document.querySelector(".nav-beam");
+const navTargets = document.querySelectorAll(".nav-links .nav-link");
+
+function moveNavBeam(target) {
+  if (!navBeam || !target) return;
+
+  const shellRect = document.querySelector(".nav-shell").getBoundingClientRect();
+  const rect = target.getBoundingClientRect();
+
+  navBeam.style.left = `${rect.left - shellRect.left}px`;
+  navBeam.style.top = `${rect.top - shellRect.top + (rect.height - 36) / 2}px`;
+  navBeam.style.width = `${rect.width}px`;
+  navBeam.style.opacity = "1";
+}
+
+navTargets.forEach((link) => {
+  link.addEventListener("mouseenter", () => moveNavBeam(link));
+});
+
+document.querySelector(".nav-shell")?.addEventListener("mouseleave", () => {
+  if (navBeam) navBeam.style.opacity = "0";
+});
+
+  document.querySelectorAll(
+  ".tilt-card, .work-card, .story-card, .project-card, .contact-card, .deep-console, .terminal-card"
+).forEach((card) => {
+  card.addEventListener("pointermove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty("--spot-x", `${x}%`);
+    card.style.setProperty("--spot-y", `${y}%`);
+  });
+});
+
+
+  const heroCopy = document.querySelector(".hero-copy");
+const heroTitle = document.querySelector(".hero h1");
+const heroSubtitle = document.querySelector(".hero-subtitle");
+const heroTags = document.querySelector(".hero-tags");
+const heroActions = document.querySelector(".hero-actions");
+const heroVisual = document.querySelector(".hero-visual");
+
+function updateHeroParallax() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  const rect = hero.getBoundingClientRect();
+  const progress = Math.max(-1, Math.min(1, rect.top / window.innerHeight));
+
+  if (heroTitle) heroTitle.style.transform = `translateY(${progress * -18}px)`;
+  if (heroSubtitle) heroSubtitle.style.transform = `translateY(${progress * -10}px)`;
+  if (heroTags) heroTags.style.transform = `translateY(${progress * -6}px)`;
+  if (heroActions) heroActions.style.transform = `translateY(${progress * -3}px)`;
+  if (heroVisual) heroVisual.style.transform = `translateY(${progress * 10}px)`;
+}
+
+window.addEventListener("scroll", updateHeroParallax, { passive: true });
+window.addEventListener("resize", updateHeroParallax);
+updateHeroParallax();
+  
   function scrollToSection(id) {
     const target = document.getElementById(id);
     if (!target) return;
