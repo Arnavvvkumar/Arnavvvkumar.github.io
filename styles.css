@@ -497,39 +497,300 @@ p {
   50% { transform: translateY(-12px) scale(1.04); }
 }
 
-.mini-stack {
+/* =========================
+   HERO VISUAL CLEANUP
+========================= */
+
+.hero-visual {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual .terminal-card {
+  width: min(100%, 640px);
+  position: relative;
+  z-index: 4;
+}
+
+/* floating fancy orbs */
+.hero-fx-orbs {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 78%;
-  display: grid;
-  gap: 12px;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fx-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(6px);
+  opacity: 0.85;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.orb-a {
+  width: 170px;
+  height: 170px;
+  right: 4%;
+  top: 8%;
+  background: radial-gradient(circle, rgba(98,234,255,0.18), rgba(98,234,255,0.02) 70%, transparent 80%);
+}
+
+.orb-b {
+  width: 230px;
+  height: 230px;
+  left: 8%;
+  bottom: 4%;
+  background: radial-gradient(circle, rgba(157,124,255,0.15), rgba(157,124,255,0.02) 70%, transparent 82%);
+  animation-delay: 1.3s;
+}
+
+.orb-c {
+  width: 120px;
+  height: 120px;
+  right: 18%;
+  bottom: 16%;
+  background: radial-gradient(circle, rgba(133,255,190,0.18), rgba(133,255,190,0.02) 70%, transparent 82%);
+  animation-delay: 2.2s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
+  50% { transform: translateY(-18px) translateX(10px) scale(1.04); }
+}
+
+/* =========================
+   TERMINAL = MORE FANCY
+========================= */
+
+.terminal-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.045) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 3px,
+      transparent 6px
+    );
+  background-size: 100% 6px;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+}
+
+.terminal-card::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(98, 234, 255, 0.09) 48%,
+    rgba(255,255,255,0.05) 51%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  animation: terminalSweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes terminalSweep {
+  0%, 62% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.command strong::after {
+  content: "_";
+  margin-left: 2px;
+  color: var(--cyan);
+  animation: blinkCaret 0.9s steps(1) infinite;
+}
+
+@keyframes blinkCaret {
+  50% { opacity: 0; }
+}
+
+/* =========================
+   HEADINGS = LESS BASIC
+========================= */
+
+.hero h1,
+.section-head h2 {
+  position: relative;
+  will-change: transform;
+}
+
+.hero h1:hover,
+.section-head h2:hover {
+  text-shadow:
+    0 0 24px rgba(255,255,255,0.07),
+    0 0 40px rgba(98,234,255,0.08);
+}
+
+/* subtle glitch flash */
+.hero h1.glitching::before,
+.section-head h2.glitching::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: rgba(98,234,255,0.5);
+  transform: translate(2px, -1px);
+  clip-path: inset(0 0 45% 0);
+  pointer-events: none;
+}
+
+.hero h1.glitching::after,
+.section-head h2.glitching::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: rgba(157,124,255,0.42);
+  transform: translate(-2px, 1px);
+  clip-path: inset(58% 0 0 0);
+  pointer-events: none;
+}
+
+/* =========================
+   NAV BEAM
+========================= */
+
+.nav-shell {
+  position: relative;
+}
+
+.nav-links {
+  position: relative;
   z-index: 2;
 }
 
-.mini-stack article {
-  border-radius: 20px;
-  padding: 16px 18px;
+.nav-beam {
+  position: absolute;
+  height: 36px;
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(98,234,255,0.14), rgba(98,234,255,0.02) 70%, transparent);
+  filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    left 0.25s ease,
+    top 0.25s ease,
+    width 0.25s ease,
+    opacity 0.2s ease;
+  z-index: 1;
 }
 
-.mini-stack span {
-  color: var(--cyan);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.8rem;
+/* =========================
+   SPOTLIGHT HOVER ON CARDS
+========================= */
+
+.tilt-card,
+.work-card,
+.story-card,
+.project-card,
+.contact-card,
+.deep-console,
+.terminal-card {
+  position: relative;
+  overflow: hidden;
 }
 
-.mini-stack strong {
-  display: block;
-  margin: 4px 0;
-  font-size: 1.08rem;
+.tilt-card::before,
+.work-card::before,
+.story-card::before,
+.project-card::before,
+.contact-card::before,
+.deep-console::before,
+.terminal-card::before {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      420px circle at var(--spot-x) var(--spot-y),
+      rgba(98,234,255,0.11),
+      transparent 38%
+    );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
-.mini-stack p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
+.tilt-card:hover::before,
+.work-card:hover::before,
+.story-card:hover::before,
+.project-card:hover::before,
+.contact-card:hover::before,
+.deep-console:hover::before,
+.terminal-card:hover::before {
+  opacity: 1;
 }
 
+/* =========================
+   SECTION TRANSITION GLOW
+========================= */
+
+.section {
+  position: relative;
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  width: 340px;
+  height: 120px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(98,234,255,0.08), transparent 70%);
+  pointer-events: none;
+  filter: blur(16px);
+  opacity: 0.55;
+}
+
+/* =========================
+   HERO PARALLAX TUNING
+========================= */
+
+.hero-copy {
+  will-change: transform;
+}
+
+.hero-subtitle,
+.hero-tags,
+.hero-actions {
+  will-change: transform;
+}
+
+/* =========================
+   BETTER MOBILE
+========================= */
+
+@media (max-width: 1100px) {
+  .hero-visual {
+    min-height: auto;
+  }
+
+  .hero-fx-orbs {
+    display: none;
+  }
+}
 .section-head {
   max-width: 850px;
   margin-bottom: 34px;
