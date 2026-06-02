@@ -3,309 +3,567 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arnav Kumar | Computer Science Portfolio</title>
-  <meta name="description" content="Arnav Kumar, Computer Science student at The Ohio State University focused on machine learning, data science, software engineering, and research." />
+
+  <title>Arnav Kumar | ML / Data / SWE Portfolio</title>
+  <meta
+    name="description"
+    content="Arnav Kumar, Computer Science student at The Ohio State University focused on machine learning, data science, software engineering, LLM evaluation, and model optimization."
+  />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <header class="header">
-    <div class="container nav-wrap">
-      <a href="#home" class="brand">Arnav Kumar</a>
+  <canvas id="matrixCanvas" aria-hidden="true"></canvas>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-      <nav class="nav">
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
+  <header class="topbar">
+    <a href="#home" class="brand" aria-label="Home">
+      <span class="brand-mark">AK</span>
+      <span class="brand-text">Arnav Kumar</span>
+    </a>
 
-      <a class="resume-link" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">Resume</a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#lab">Lab</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span></span>
+      </button>
+      <a class="mini-btn" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">Resume</a>
     </div>
   </header>
 
+  <aside class="scroll-console" aria-label="Scroll progress">
+    <div class="console-title">MISSION</div>
+    <div class="console-step active" data-track="home">
+      <span>01</span>
+      <p>Initialize profile</p>
+    </div>
+    <div class="console-step" data-track="work">
+      <span>02</span>
+      <p>Inspect experience</p>
+    </div>
+    <div class="console-step" data-track="research">
+      <span>03</span>
+      <p>Validate research</p>
+    </div>
+    <div class="console-step" data-track="projects">
+      <span>04</span>
+      <p>Review builds</p>
+    </div>
+    <div class="console-step" data-track="lab">
+      <span>05</span>
+      <p>Run lab demo</p>
+    </div>
+    <div class="console-step" data-track="contact">
+      <span>06</span>
+      <p>Establish contact</p>
+    </div>
+    <div class="progress-shell">
+      <div class="progress-bar" id="pageProgress"></div>
+    </div>
+  </aside>
+
   <main>
-    <section id="home" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="label">Computer Science @ The Ohio State University</p>
-          <h1>ML, data science, and software engineering portfolio.</h1>
+    <section id="home" class="hero scene" data-scene="home">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <div class="status-pill">
+            <span class="ping"></span>
+            Open to Summer 2027 internships
+          </div>
 
-          <p class="lead">
-            I’m Arnav, a CS student interested in Summer 2027 internships across machine learning,
-            data science, software engineering, research engineering, and AI/ML systems.
+          <p class="kicker">Computer Science @ The Ohio State University</p>
+
+          <h1>
+            I build ML systems that turn messy data into measurable behavior.
+          </h1>
+
+          <p class="hero-lead">
+            I’m Arnav, a CS student focused on machine learning, data science, software engineering,
+            and research engineering roles. My work spans LLM benchmarking, efficient inference,
+            personalized prediction, and time-series forecasting.
           </p>
 
-          <p class="sublead">
-            My work includes LLM evaluation and optimization, personalized glucose-response prediction,
-            time-series forecasting, anomaly detection, and applied ML projects.
-          </p>
+          <div class="role-strip" aria-label="Focus areas">
+            <span>ML Systems</span>
+            <span>Data Science</span>
+            <span>Software Engineering</span>
+            <span>Research Engineering</span>
+          </div>
 
-          <div class="actions">
-            <a class="btn primary" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">View Resume</a>
-            <a class="btn" href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
-            <a class="btn" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
-            <a class="btn" href="mailto:kumar.1178@osu.edu">Email</a>
+          <div class="hero-actions">
+            <a class="primary-action magnetic" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">
+              View Resume
+            </a>
+            <a class="secondary-action magnetic" href="https://github.com/Arnavvvkumar" target="_blank">
+              GitHub
+            </a>
+            <a class="secondary-action magnetic" href="https://www.linkedin.com/" target="_blank">
+              LinkedIn
+            </a>
+            <a class="secondary-action magnetic" href="mailto:kumar.1178@osu.edu">
+              Email
+            </a>
           </div>
         </div>
 
-        <aside class="profile-card">
-          <h2>Quick profile</h2>
+        <div class="hero-panel reveal" style="--delay: 130ms">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <p>arnav@portfolio:~</p>
+            </div>
 
-          <div class="profile-row">
-            <span>School</span>
-            <strong>Ohio State University</strong>
+            <div class="terminal-body">
+              <p><span class="prompt">$</span> load_profile --target internships</p>
+              <p class="muted-line">Loading verified signals...</p>
+
+              <div class="terminal-stat">
+                <span>School</span>
+                <strong>Ohio State University</strong>
+              </div>
+
+              <div class="terminal-stat">
+                <span>Degree</span>
+                <strong>B.S. Computer Science · May 2028</strong>
+              </div>
+
+              <div class="terminal-stat">
+                <span>Current work</span>
+                <strong>LLM optimization + personalized ML prediction</strong>
+              </div>
+
+              <div class="terminal-stat">
+                <span>Looking for</span>
+                <strong>ML / Data / SWE / Research internships</strong>
+              </div>
+
+              <p class="typing-line" id="typingLine"></p>
+            </div>
           </div>
 
-          <div class="profile-row">
-            <span>Degree</span>
-            <strong>B.S. Computer Science, May 2028</strong>
+          <div class="orb-wrap" aria-hidden="true">
+            <div class="orb"></div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit orbit-three"></div>
           </div>
-
-          <div class="profile-row">
-            <span>Interests</span>
-            <strong>ML, Data Science, SWE, Research Engineering</strong>
-          </div>
-
-          <div class="profile-row">
-            <span>Location</span>
-            <strong>Columbus, Ohio</strong>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="stats-section">
-      <div class="container stats-grid">
-        <div class="stat-card">
-          <strong>2M+</strong>
-          <span>energy readings modeled</span>
-        </div>
-
-        <div class="stat-card">
-          <strong>41</strong>
-          <span>participants in glucose prediction research</span>
-        </div>
-
-        <div class="stat-card">
-          <strong>44% / 52%</strong>
-          <span>SQuAD EM / F1 after evaluation tuning</span>
-        </div>
-
-        <div class="stat-card">
-          <strong>R² ≈ 0.60</strong>
-          <span>AUC prediction under LOSO evaluation</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <div class="container">
-        <div class="section-head">
-          <p class="label">Experience</p>
-          <h2>Research and technical experience</h2>
-        </div>
-
-        <div class="experience-list">
-          <article class="experience-card">
-            <div class="experience-meta">
-              <span>Mar 2026 – Present</span>
-              <span>Ohio State University</span>
-            </div>
-
-            <div class="experience-body">
-              <h3>Research Assistant</h3>
-              <p>
-                Researching structured pruning and quantization for efficient deployment of small language models
-                using Qwen2.5, Torch-Pruning, llama.cpp, and local GPU inference.
-              </p>
-              <ul>
-                <li>Built a local QA benchmarking pipeline across SQuAD, BoolQ, and Natural Questions.</li>
-                <li>Used llama-server, prompt engineering, and answer extraction for reproducible model evaluation.</li>
-                <li>Improved SQuAD evaluation performance to approximately 44% EM / 52% F1.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="experience-card">
-            <div class="experience-meta">
-              <span>May 2026 – Present</span>
-              <span>Kyoto University of Advanced Sciences</span>
-            </div>
-
-            <div class="experience-body">
-              <h3>Research Intern</h3>
-              <p>
-                Conducting machine learning research on personalized post-meal glucose response prediction using
-                wearable, biomarker, and meal data.
-              </p>
-              <ul>
-                <li>Built XGBoost, CatBoost, Random Forest, and Gradient Boosting pipelines.</li>
-                <li>Implemented leakage-aware nested cross-validation with GroupKFold and RandomizedSearchCV.</li>
-                <li>Achieved approximately R² 0.60 for AUC prediction under a LOSO evaluation framework.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="experience-card">
-            <div class="experience-meta">
-              <span>Jun 2025 – Jul 2025</span>
-              <span>CyberTryzub</span>
-            </div>
-
-            <div class="experience-body">
-              <h3>ISO Counsel Intern</h3>
-              <p>
-                Supported cybersecurity audit and advisory work with ISO 27001 documentation review,
-                organizational risk exposure assessment, and compliance gap identification.
-              </p>
-            </div>
-          </article>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section muted-section">
-      <div class="container">
-        <div class="section-head">
-          <p class="label">Projects</p>
-          <h2>Selected projects</h2>
-        </div>
+    <section class="signal-band scene" data-scene="home">
+      <div class="metric-card reveal">
+        <span>Energy data</span>
+        <strong data-count="2000000">0</strong>
+        <p>readings modeled in forecasting pipeline</p>
+      </div>
 
-        <div class="project-grid">
-          <article class="project-card">
-            <p class="project-type">Time-Series Forecasting</p>
-            <h3>Energy Forecasting with Anomaly Detection</h3>
+      <div class="metric-card reveal" style="--delay: 80ms">
+        <span>Glucose research</span>
+        <strong data-count="41">0</strong>
+        <p>participants under LOSO evaluation</p>
+      </div>
+
+      <div class="metric-card reveal" style="--delay: 160ms">
+        <span>QA benchmark</span>
+        <strong>44 / 52</strong>
+        <p>SQuAD EM / F1 after evaluation tuning</p>
+      </div>
+
+      <div class="metric-card reveal" style="--delay: 240ms">
+        <span>Prediction</span>
+        <strong>R² ≈ .60</strong>
+        <p>AUC prediction in personalized ML research</p>
+      </div>
+    </section>
+
+    <section id="work" class="section scene" data-scene="work">
+      <div class="section-head reveal">
+        <p class="section-kicker">Experience</p>
+        <h2>Applied research, ML systems, and technical work.</h2>
+        <p>
+          The common thread: build pipelines, measure behavior, debug failures, and turn research into something reproducible.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <div class="timeline-date">
+            <span>Mar 2026</span>
+            <span>Present</span>
+          </div>
+
+          <div class="timeline-card tilt-card">
+            <div class="card-top">
+              <div>
+                <p class="card-label">Ohio State University</p>
+                <h3>Research Assistant</h3>
+              </div>
+              <span class="chip">LLM Systems</span>
+            </div>
+
             <p>
-              Built a forecasting pipeline on 2M+ energy readings with temporal feature engineering,
-              anomaly detection, and model comparison.
+              Researching structured pruning and quantization for efficient deployment of small language models using
+              Qwen2.5, Torch-Pruning, llama.cpp, and local GPU inference.
             </p>
+
             <ul>
-              <li>Engineered 25 temporal features from large-scale sensor data.</li>
-              <li>Applied Z-score, IQR, and Modified Z-score anomaly detection.</li>
-              <li>Best model achieved MAE 0.0123 and RMSE 0.0200.</li>
+              <li>Built a local QA benchmarking pipeline across SQuAD, BoolQ, and Natural Questions.</li>
+              <li>Used llama-server, prompt engineering, and answer extraction for reproducible evaluation.</li>
+              <li>Improved SQuAD evaluation performance to approximately 44% EM / 52% F1.</li>
             </ul>
+
             <div class="tag-row">
-              <span>Python</span>
-              <span>pandas</span>
-              <span>scikit-learn</span>
+              <span>Qwen2.5</span>
+              <span>llama.cpp</span>
+              <span>Torch-Pruning</span>
+              <span>Benchmarking</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-date">
+            <span>May 2026</span>
+            <span>Present</span>
+          </div>
+
+          <div class="timeline-card tilt-card">
+            <div class="card-top">
+              <div>
+                <p class="card-label">Kyoto University of Advanced Sciences</p>
+                <h3>Research Intern</h3>
+              </div>
+              <span class="chip">Predictive ML</span>
+            </div>
+
+            <p>
+              Conducting machine learning research on personalized post-meal glucose response prediction using wearable,
+              biomarker, and meal data.
+            </p>
+
+            <ul>
+              <li>Built XGBoost, CatBoost, Random Forest, and Gradient Boosting pipelines.</li>
+              <li>Implemented leakage-aware nested cross-validation with GroupKFold and RandomizedSearchCV.</li>
+              <li>Achieved approximately R² 0.60 for AUC prediction under a LOSO evaluation framework.</li>
+            </ul>
+
+            <div class="tag-row">
               <span>XGBoost</span>
+              <span>CatBoost</span>
+              <span>GroupKFold</span>
+              <span>LOSO</span>
             </div>
-          </article>
+          </div>
+        </article>
 
-          <article class="project-card">
-            <p class="project-type">Computer Vision / App</p>
-            <h3>AI-Powered Image Editor</h3>
+        <article class="timeline-item reveal">
+          <div class="timeline-date">
+            <span>Jun 2025</span>
+            <span>Jul 2025</span>
+          </div>
+
+          <div class="timeline-card tilt-card">
+            <div class="card-top">
+              <div>
+                <p class="card-label">CyberTryzub</p>
+                <h3>ISO Counsel Intern</h3>
+              </div>
+              <span class="chip">Security</span>
+            </div>
+
             <p>
-              Built an interactive image editing tool integrating DeepFace facial analysis and ResNet-based
-              components into a Gradio interface.
+              Supported cybersecurity audit and advisory work with ISO 27001 documentation review,
+              organizational risk exposure assessment, and compliance gap identification.
             </p>
-            <ul>
-              <li>Integrated facial analysis with deep learning backbones.</li>
-              <li>Designed a chatbot-style interface for interactive image editing.</li>
-              <li>Focused on making model-driven editing accessible through one interface.</li>
-            </ul>
+
             <div class="tag-row">
-              <span>Python</span>
-              <span>DeepFace</span>
-              <span>ResNet</span>
-              <span>Gradio</span>
+              <span>ISO 27001</span>
+              <span>Risk Review</span>
+              <span>Compliance</span>
             </div>
-          </article>
+          </div>
+        </article>
+      </div>
+    </section>
 
-          <article class="project-card">
-            <p class="project-type">Engineering Honors Project</p>
-            <h3>Mg-Based Nanorobots in Oncology</h3>
-            <p>
-              Led a 3-person team project and authored a research paper on magnesium-based nanorobots
-              for targeted cancer drug delivery.
-            </p>
-            <ul>
-              <li>Evaluated magnesium as a candidate material for biomedical delivery systems.</li>
-              <li>Coordinated project research, writing, and final presentation.</li>
-            </ul>
-            <div class="tag-row">
-              <span>Research</span>
-              <span>Technical Writing</span>
-              <span>Team Leadership</span>
+    <section id="research" class="section research-section scene" data-scene="research">
+      <div class="section-head reveal">
+        <p class="section-kicker">Research Map</p>
+        <h2>Two research tracks. One engineering habit.</h2>
+        <p>
+          I care less about flashy model names and more about whether the evaluation is controlled, reproducible, and honest.
+        </p>
+      </div>
+
+      <div class="research-grid">
+        <article class="research-card reveal tilt-card">
+          <div class="research-index">01</div>
+          <p class="card-label">LLM Evaluation + Optimization</p>
+          <h3>Making small language models measurable on edge-style constraints.</h3>
+          <p>
+            Built local inference and QA evaluation workflows to compare model behavior across benchmark tasks.
+            Current focus includes pruning, quantization, answer extraction, and fixed-prompt evaluation.
+          </p>
+
+          <div class="research-flow">
+            <span>Prompt</span>
+            <span>Infer</span>
+            <span>Extract</span>
+            <span>Score</span>
+            <span>Compare</span>
+          </div>
+        </article>
+
+        <article class="research-card reveal tilt-card" style="--delay: 120ms">
+          <div class="research-index">02</div>
+          <p class="card-label">Personalized ML Prediction</p>
+          <h3>Predicting glucose response without leaking subject identity.</h3>
+          <p>
+            Built leakage-aware machine learning pipelines for post-meal glucose response prediction using wearable,
+            biomarker, and meal features under subject-independent evaluation.
+          </p>
+
+          <div class="research-flow">
+            <span>Clean</span>
+            <span>Split</span>
+            <span>Tune</span>
+            <span>Validate</span>
+            <span>Explain</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section scene" data-scene="projects">
+      <div class="section-head reveal">
+        <p class="section-kicker">Builds</p>
+        <h2>Projects that show how I think.</h2>
+        <p>
+          Filter the projects by area. Each one is written to show the problem, method, and measurable result.
+        </p>
+      </div>
+
+      <div class="filter-bar reveal" aria-label="Project filters">
+        <button class="filter-btn active" data-filter="all" type="button">All</button>
+        <button class="filter-btn" data-filter="ml" type="button">ML</button>
+        <button class="filter-btn" data-filter="systems" type="button">Systems</button>
+        <button class="filter-btn" data-filter="cv" type="button">Computer Vision</button>
+        <button class="filter-btn" data-filter="research" type="button">Research</button>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card tilt-card reveal" data-category="ml systems">
+          <div class="project-screen">
+            <div class="screen-bars">
+              <span style="height: 42%"></span>
+              <span style="height: 58%"></span>
+              <span style="height: 68%"></span>
+              <span style="height: 52%"></span>
+              <span style="height: 75%"></span>
+              <span style="height: 88%"></span>
             </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <div class="container">
-        <div class="section-head">
-          <p class="label">Skills</p>
-          <h2>Technical toolkit</h2>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h3>Languages</h3>
-            <p>Python, Java, C/C++, HTML/CSS</p>
+            <div class="screen-line"></div>
           </div>
 
-          <div class="skill-card">
-            <h3>ML / Data</h3>
-            <p>TensorFlow/Keras, NumPy, pandas, scikit-learn, Matplotlib, Seaborn, XGBoost, CatBoost</p>
-          </div>
-
-          <div class="skill-card">
-            <h3>Tools</h3>
-            <p>Git/GitHub, llama.cpp, ONNX, OpenCV, Gradio, MATLAB, SolidWorks</p>
-          </div>
-
-          <div class="skill-card">
-            <h3>Concepts</h3>
-            <p>Deep Learning, Time-Series Modeling, Model Optimization, Data Engineering, Cross-Validation</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section muted-section">
-      <div class="container cta-card">
-        <div>
-          <p class="label">Summer 2027</p>
-          <h2>Looking for ML, data, SWE, and research internships.</h2>
+          <p class="card-label">Time-Series Forecasting</p>
+          <h3>Energy Forecasting with Anomaly Detection</h3>
           <p>
-            I’m especially interested in teams working on real-world data, model evaluation,
-            forecasting, optimization, AI/ML infrastructure, and scalable software systems.
+            Built a forecasting pipeline on 2M+ readings with temporal feature engineering,
+            anomaly detection, and model comparison.
           </p>
-        </div>
+          <ul>
+            <li>Engineered 25 temporal features from large-scale sensor data.</li>
+            <li>Applied Z-score, IQR, and Modified Z-score anomaly detection.</li>
+            <li>Best model achieved MAE 0.0123 and RMSE 0.0200.</li>
+          </ul>
+          <div class="tag-row">
+            <span>Python</span>
+            <span>pandas</span>
+            <span>scikit-learn</span>
+            <span>XGBoost</span>
+          </div>
+        </article>
 
-        <a class="btn primary" href="mailto:kumar.1178@osu.edu">Contact Me</a>
+        <article class="project-card tilt-card reveal" data-category="cv ml">
+          <div class="project-screen vision">
+            <div class="face-box"></div>
+            <div class="scan-line"></div>
+          </div>
+
+          <p class="card-label">Computer Vision / App</p>
+          <h3>AI-Powered Image Editor</h3>
+          <p>
+            Built an interactive image editing tool integrating DeepFace facial analysis and ResNet-based
+            components into a Gradio interface.
+          </p>
+          <ul>
+            <li>Integrated facial analysis with deep learning backbones.</li>
+            <li>Designed a chatbot-style interface for interactive editing.</li>
+            <li>Focused on making model-driven editing accessible through one interface.</li>
+          </ul>
+          <div class="tag-row">
+            <span>Python</span>
+            <span>DeepFace</span>
+            <span>ResNet</span>
+            <span>Gradio</span>
+          </div>
+        </article>
+
+        <article class="project-card tilt-card reveal" data-category="research">
+          <div class="project-screen nano">
+            <div class="molecule">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <p class="card-label">Engineering Honors Project</p>
+          <h3>Mg-Based Nanorobots in Oncology</h3>
+          <p>
+            Led a 3-person team project and authored a research paper on magnesium-based nanorobots
+            for targeted cancer drug delivery.
+          </p>
+          <ul>
+            <li>Evaluated magnesium as a candidate material for biomedical delivery systems.</li>
+            <li>Coordinated project research, writing, and final presentation.</li>
+          </ul>
+          <div class="tag-row">
+            <span>Research</span>
+            <span>Technical Writing</span>
+            <span>Team Leadership</span>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section id="contact" class="section contact-section">
-      <div class="container contact-grid">
-        <div>
-          <p class="label">Contact</p>
-          <h2>Let’s connect</h2>
-          <p>
-            The fastest way to reach me is by email. I’m open to internship opportunities,
-            research roles, and technical conversations.
-          </p>
+    <section id="lab" class="section lab-section scene" data-scene="lab">
+      <div class="section-head reveal">
+        <p class="section-kicker">Interactive Lab</p>
+        <h2>Scroll, toggle, inspect.</h2>
+        <p>
+          A small interactive panel showing the kind of model behavior I care about: accuracy, latency, and error.
+        </p>
+      </div>
+
+      <div class="lab-grid">
+        <div class="lab-controls reveal">
+          <button class="lab-tab active" data-lab="llm" type="button">LLM Eval</button>
+          <button class="lab-tab" data-lab="forecasting" type="button">Forecasting</button>
+          <button class="lab-tab" data-lab="bio" type="button">Bio ML</button>
+
+          <div class="control-panel">
+            <label>
+              Model pressure
+              <input id="pressureSlider" type="range" min="1" max="10" value="6" />
+            </label>
+
+            <label>
+              Evaluation strictness
+              <input id="strictnessSlider" type="range" min="1" max="10" value="7" />
+            </label>
+          </div>
+
+          <div class="lab-note" id="labNote">
+            Compressing a model is easy. Keeping behavior measurable is the real problem.
+          </div>
         </div>
 
-        <div class="contact-links">
-          <a href="mailto:kumar.1178@osu.edu">kumar.1178@osu.edu</a>
-          <a href="tel:+13808955433">+1 (380) 895-5433</a>
-          <a href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
-          <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <div class="lab-display reveal tilt-card" style="--delay: 120ms">
+          <div class="lab-header">
+            <span id="labTitle">LLM Evaluation</span>
+            <span id="labScore">52% F1</span>
+          </div>
+
+          <div class="chart" id="chart" aria-label="Interactive chart">
+            <div class="chart-bar" style="--bar: 46%"><span></span></div>
+            <div class="chart-bar" style="--bar: 54%"><span></span></div>
+            <div class="chart-bar" style="--bar: 61%"><span></span></div>
+            <div class="chart-bar" style="--bar: 58%"><span></span></div>
+            <div class="chart-bar" style="--bar: 70%"><span></span></div>
+            <div class="chart-bar" style="--bar: 76%"><span></span></div>
+          </div>
+
+          <div class="lab-metrics">
+            <div>
+              <span>Signal</span>
+              <strong id="metricOne">Answer extraction</strong>
+            </div>
+            <div>
+              <span>Risk</span>
+              <strong id="metricTwo">Parsing failures</strong>
+            </div>
+            <div>
+              <span>Method</span>
+              <strong id="metricThree">Fixed prompts</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section scene" data-scene="lab">
+      <div class="section-head reveal">
+        <p class="section-kicker">Toolkit</p>
+        <h2>Tools I can actually talk through.</h2>
+      </div>
+
+      <div class="skills-cloud reveal">
+        <span>Python</span>
+        <span>Java</span>
+        <span>C/C++</span>
+        <span>pandas</span>
+        <span>NumPy</span>
+        <span>scikit-learn</span>
+        <span>XGBoost</span>
+        <span>CatBoost</span>
+        <span>TensorFlow/Keras</span>
+        <span>Matplotlib</span>
+        <span>llama.cpp</span>
+        <span>Torch-Pruning</span>
+        <span>OpenCV</span>
+        <span>ONNX</span>
+        <span>Gradio</span>
+        <span>MATLAB</span>
+        <span>Model Evaluation</span>
+        <span>Cross-Validation</span>
+        <span>Time-Series Modeling</span>
+        <span>Data Engineering</span>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact scene" data-scene="contact">
+      <div class="contact-card reveal">
+        <p class="section-kicker">Contact</p>
+        <h2>Looking for the short version?</h2>
+        <p>
+          I’m applying for Summer 2027 internships in ML, data science, software engineering,
+          AI/ML systems, research engineering, and analytics-focused teams.
+        </p>
+
+        <div class="contact-actions">
+          <a class="primary-action magnetic" href="mailto:kumar.1178@osu.edu">Email Me</a>
+          <a class="secondary-action magnetic" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">Resume</a>
+          <a class="secondary-action magnetic" href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
+          <a class="secondary-action magnetic" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-wrap">
-      <p>© 2026 Arnav Kumar</p>
-      <p>Computer Science @ The Ohio State University</p>
-    </div>
+    <p>© 2026 Arnav Kumar</p>
+    <p>Built for internship recruiting, research visibility, and technical storytelling.</p>
   </footer>
 
   <script src="script.js"></script>
