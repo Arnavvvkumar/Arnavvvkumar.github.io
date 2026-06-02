@@ -3,260 +3,309 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arnav Kumar | CS @ Ohio State</title>
-  <meta name="description" content="Portfolio of Arnav Kumar, Computer Science student at The Ohio State University focused on ML, data science, software engineering, and research systems." />
+  <title>Arnav Kumar | Computer Science Portfolio</title>
+  <meta name="description" content="Arnav Kumar, Computer Science student at The Ohio State University focused on machine learning, data science, software engineering, and research." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <header class="site-header">
-    <a href="#home" class="logo">AK</a>
+  <header class="header">
+    <div class="container nav-wrap">
+      <a href="#home" class="brand">Arnav Kumar</a>
 
-    <nav class="nav">
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav class="nav">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-    <a class="resume-btn" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">Resume</a>
+      <a class="resume-link" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">Resume</a>
+    </div>
   </header>
 
   <main>
     <section id="home" class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">Computer Science @ The Ohio State University</p>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="label">Computer Science @ The Ohio State University</p>
+          <h1>ML, data science, and software engineering portfolio.</h1>
 
-        <h1>Arnav Kumar</h1>
+          <p class="lead">
+            I’m Arnav, a CS student interested in Summer 2027 internships across machine learning,
+            data science, software engineering, research engineering, and AI/ML systems.
+          </p>
 
-        <p class="hero-subtitle">
-          I’m a CS student interested in machine learning, data science, software engineering,
-          and research engineering internships for Summer 2027.
-        </p>
+          <p class="sublead">
+            My work includes LLM evaluation and optimization, personalized glucose-response prediction,
+            time-series forecasting, anomaly detection, and applied ML projects.
+          </p>
 
-        <p class="hero-text">
-          My work focuses on building and evaluating ML systems across LLM benchmarking,
-          efficient inference, personalized prediction, and time-series forecasting.
-        </p>
+          <div class="actions">
+            <a class="btn primary" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">View Resume</a>
+            <a class="btn" href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+            <a class="btn" href="mailto:kumar.1178@osu.edu">Email</a>
+          </div>
+        </div>
 
-        <div class="hero-actions">
-          <a class="primary-btn" href="assets/Arnav_Kumar_Resume.pdf" target="_blank">View Resume</a>
-          <a class="secondary-btn" href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
-          <a class="secondary-btn" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
-          <a class="secondary-btn" href="mailto:kumar.1178@osu.edu">Email</a>
+        <aside class="profile-card">
+          <h2>Quick profile</h2>
+
+          <div class="profile-row">
+            <span>School</span>
+            <strong>Ohio State University</strong>
+          </div>
+
+          <div class="profile-row">
+            <span>Degree</span>
+            <strong>B.S. Computer Science, May 2028</strong>
+          </div>
+
+          <div class="profile-row">
+            <span>Interests</span>
+            <strong>ML, Data Science, SWE, Research Engineering</strong>
+          </div>
+
+          <div class="profile-row">
+            <span>Location</span>
+            <strong>Columbus, Ohio</strong>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <strong>2M+</strong>
+          <span>energy readings modeled</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>41</strong>
+          <span>participants in glucose prediction research</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>44% / 52%</strong>
+          <span>SQuAD EM / F1 after evaluation tuning</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>R² ≈ 0.60</strong>
+          <span>AUC prediction under LOSO evaluation</span>
         </div>
       </div>
-
-      <aside class="hero-card">
-        <h2>Quick Profile</h2>
-        <ul>
-          <li><span>School</span>Ohio State University</li>
-          <li><span>Degree</span>B.S. Computer Science, May 2028</li>
-          <li><span>Focus</span>ML, data science, SWE, research systems</li>
-          <li><span>Location</span>Columbus, Ohio</li>
-        </ul>
-      </aside>
     </section>
 
     <section id="experience" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Experience</p>
-        <h2>Research and technical experience</h2>
-      </div>
+      <div class="container">
+        <div class="section-head">
+          <p class="label">Experience</p>
+          <h2>Research and technical experience</h2>
+        </div>
 
-      <div class="timeline">
-        <article class="timeline-card">
-          <div class="timeline-meta">
-            <span>Mar 2026 – Present</span>
-            <span>Ohio State University</span>
-          </div>
-          <div>
-            <h3>Research Assistant</h3>
-            <p>
-              Conducting research on structured pruning and quantization for efficient deployment
-              of small language models using Qwen2.5, Torch-Pruning, llama.cpp, and local GPU inference.
-            </p>
-            <ul>
-              <li>Built a local QA benchmarking pipeline across SQuAD, BoolQ, and Natural Questions.</li>
-              <li>Used llama-server, prompt engineering, and answer extraction for reproducible evaluation.</li>
-              <li>Improved SQuAD evaluation performance to approximately 44% EM / 52% F1.</li>
-            </ul>
-          </div>
-        </article>
+        <div class="experience-list">
+          <article class="experience-card">
+            <div class="experience-meta">
+              <span>Mar 2026 – Present</span>
+              <span>Ohio State University</span>
+            </div>
 
-        <article class="timeline-card">
-          <div class="timeline-meta">
-            <span>May 2026 – Present</span>
-            <span>Kyoto University of Advanced Sciences</span>
-          </div>
-          <div>
-            <h3>Research Intern</h3>
-            <p>
-              Conducting machine learning research on personalized post-meal glucose response prediction
-              using wearable, biomarker, and meal data.
-            </p>
-            <ul>
-              <li>Built XGBoost, CatBoost, Random Forest, and Gradient Boosting pipelines.</li>
-              <li>Implemented leakage-aware nested cross-validation with GroupKFold and RandomizedSearchCV.</li>
-              <li>Achieved approximately R² 0.60 for AUC prediction under a LOSO evaluation framework.</li>
-            </ul>
-          </div>
-        </article>
+            <div class="experience-body">
+              <h3>Research Assistant</h3>
+              <p>
+                Researching structured pruning and quantization for efficient deployment of small language models
+                using Qwen2.5, Torch-Pruning, llama.cpp, and local GPU inference.
+              </p>
+              <ul>
+                <li>Built a local QA benchmarking pipeline across SQuAD, BoolQ, and Natural Questions.</li>
+                <li>Used llama-server, prompt engineering, and answer extraction for reproducible model evaluation.</li>
+                <li>Improved SQuAD evaluation performance to approximately 44% EM / 52% F1.</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="timeline-card">
-          <div class="timeline-meta">
-            <span>Jun 2025 – Jul 2025</span>
-            <span>CyberTryzub</span>
-          </div>
-          <div>
-            <h3>ISO Counsel Intern</h3>
-            <p>
-              Supported cybersecurity audit and advisory work for startups, focusing on ISO 27001
-              documentation review and organizational risk/compliance gaps.
-            </p>
-          </div>
-        </article>
+          <article class="experience-card">
+            <div class="experience-meta">
+              <span>May 2026 – Present</span>
+              <span>Kyoto University of Advanced Sciences</span>
+            </div>
+
+            <div class="experience-body">
+              <h3>Research Intern</h3>
+              <p>
+                Conducting machine learning research on personalized post-meal glucose response prediction using
+                wearable, biomarker, and meal data.
+              </p>
+              <ul>
+                <li>Built XGBoost, CatBoost, Random Forest, and Gradient Boosting pipelines.</li>
+                <li>Implemented leakage-aware nested cross-validation with GroupKFold and RandomizedSearchCV.</li>
+                <li>Achieved approximately R² 0.60 for AUC prediction under a LOSO evaluation framework.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="experience-card">
+            <div class="experience-meta">
+              <span>Jun 2025 – Jul 2025</span>
+              <span>CyberTryzub</span>
+            </div>
+
+            <div class="experience-body">
+              <h3>ISO Counsel Intern</h3>
+              <p>
+                Supported cybersecurity audit and advisory work with ISO 27001 documentation review,
+                organizational risk exposure assessment, and compliance gap identification.
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="projects" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Projects</p>
-        <h2>Selected projects</h2>
-      </div>
+    <section id="projects" class="section muted-section">
+      <div class="container">
+        <div class="section-head">
+          <p class="label">Projects</p>
+          <h2>Selected projects</h2>
+        </div>
 
-      <div class="project-grid">
-        <article class="project-card">
-          <div class="project-top">
-            <p class="project-label">Time-Series Forecasting</p>
+        <div class="project-grid">
+          <article class="project-card">
+            <p class="project-type">Time-Series Forecasting</p>
             <h3>Energy Forecasting with Anomaly Detection</h3>
-          </div>
-          <p>
-            Built a forecasting pipeline on 2M+ energy readings with feature engineering,
-            anomaly detection, and regression model comparison.
-          </p>
-          <ul>
-            <li>Engineered 25 temporal features from large-scale sensor data.</li>
-            <li>Applied Z-score, IQR, and Modified Z-score anomaly detection.</li>
-            <li>Best model achieved MAE 0.0123 and RMSE 0.0200.</li>
-          </ul>
-          <div class="tags">
-            <span>Python</span>
-            <span>pandas</span>
-            <span>scikit-learn</span>
-            <span>XGBoost</span>
-          </div>
-        </article>
+            <p>
+              Built a forecasting pipeline on 2M+ energy readings with temporal feature engineering,
+              anomaly detection, and model comparison.
+            </p>
+            <ul>
+              <li>Engineered 25 temporal features from large-scale sensor data.</li>
+              <li>Applied Z-score, IQR, and Modified Z-score anomaly detection.</li>
+              <li>Best model achieved MAE 0.0123 and RMSE 0.0200.</li>
+            </ul>
+            <div class="tag-row">
+              <span>Python</span>
+              <span>pandas</span>
+              <span>scikit-learn</span>
+              <span>XGBoost</span>
+            </div>
+          </article>
 
-        <article class="project-card">
-          <div class="project-top">
-            <p class="project-label">Computer Vision / App</p>
+          <article class="project-card">
+            <p class="project-type">Computer Vision / App</p>
             <h3>AI-Powered Image Editor</h3>
-          </div>
-          <p>
-            Built an interactive image editing tool integrating facial analysis and deep learning
-            backbones into a Gradio interface.
-          </p>
-          <ul>
-            <li>Integrated DeepFace facial analysis with ResNet-based components.</li>
-            <li>Designed a chatbot-style user interface for interactive editing.</li>
-            <li>Focused on making model-driven editing accessible through one interface.</li>
-          </ul>
-          <div class="tags">
-            <span>Python</span>
-            <span>DeepFace</span>
-            <span>ResNet</span>
-            <span>Gradio</span>
-          </div>
-        </article>
+            <p>
+              Built an interactive image editing tool integrating DeepFace facial analysis and ResNet-based
+              components into a Gradio interface.
+            </p>
+            <ul>
+              <li>Integrated facial analysis with deep learning backbones.</li>
+              <li>Designed a chatbot-style interface for interactive image editing.</li>
+              <li>Focused on making model-driven editing accessible through one interface.</li>
+            </ul>
+            <div class="tag-row">
+              <span>Python</span>
+              <span>DeepFace</span>
+              <span>ResNet</span>
+              <span>Gradio</span>
+            </div>
+          </article>
 
-        <article class="project-card">
-          <div class="project-top">
-            <p class="project-label">Engineering Honors Project</p>
+          <article class="project-card">
+            <p class="project-type">Engineering Honors Project</p>
             <h3>Mg-Based Nanorobots in Oncology</h3>
-          </div>
-          <p>
-            Led a 3-person team project and authored a research paper on magnesium-based
-            nanorobots for targeted cancer drug delivery.
-          </p>
-          <ul>
-            <li>Evaluated magnesium as a candidate material for biomedical delivery systems.</li>
-            <li>Coordinated project research, writing, and presentation work.</li>
-          </ul>
-          <div class="tags">
-            <span>Research</span>
-            <span>Technical Writing</span>
-            <span>Team Leadership</span>
-          </div>
-        </article>
+            <p>
+              Led a 3-person team project and authored a research paper on magnesium-based nanorobots
+              for targeted cancer drug delivery.
+            </p>
+            <ul>
+              <li>Evaluated magnesium as a candidate material for biomedical delivery systems.</li>
+              <li>Coordinated project research, writing, and final presentation.</li>
+            </ul>
+            <div class="tag-row">
+              <span>Research</span>
+              <span>Technical Writing</span>
+              <span>Team Leadership</span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="skills" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Skills</p>
-        <h2>Technical toolkit</h2>
-      </div>
-
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h3>Languages</h3>
-          <p>Python, Java, C/C++, HTML/CSS</p>
+      <div class="container">
+        <div class="section-head">
+          <p class="label">Skills</p>
+          <h2>Technical toolkit</h2>
         </div>
 
-        <div class="skill-card">
-          <h3>ML / Data</h3>
-          <p>TensorFlow/Keras, NumPy, pandas, scikit-learn, Matplotlib, Seaborn, XGBoost, CatBoost</p>
-        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Languages</h3>
+            <p>Python, Java, C/C++, HTML/CSS</p>
+          </div>
 
-        <div class="skill-card">
-          <h3>Tools</h3>
-          <p>Git/GitHub, llama.cpp, ONNX, OpenCV, Gradio, MATLAB, SolidWorks</p>
-        </div>
+          <div class="skill-card">
+            <h3>ML / Data</h3>
+            <p>TensorFlow/Keras, NumPy, pandas, scikit-learn, Matplotlib, Seaborn, XGBoost, CatBoost</p>
+          </div>
 
-        <div class="skill-card">
-          <h3>Concepts</h3>
-          <p>Deep Learning, Time-Series Modeling, Model Optimization, Data Engineering, Cross-Validation</p>
+          <div class="skill-card">
+            <h3>Tools</h3>
+            <p>Git/GitHub, llama.cpp, ONNX, OpenCV, Gradio, MATLAB, SolidWorks</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Concepts</h3>
+            <p>Deep Learning, Time-Series Modeling, Model Optimization, Data Engineering, Cross-Validation</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section highlight-section">
-      <div class="section-heading">
-        <p class="eyebrow">What I’m looking for</p>
-        <h2>Summer 2027 internships</h2>
-      </div>
+    <section class="section muted-section">
+      <div class="container cta-card">
+        <div>
+          <p class="label">Summer 2027</p>
+          <h2>Looking for ML, data, SWE, and research internships.</h2>
+          <p>
+            I’m especially interested in teams working on real-world data, model evaluation,
+            forecasting, optimization, AI/ML infrastructure, and scalable software systems.
+          </p>
+        </div>
 
-      <p class="highlight-text">
-        I’m looking for internships where I can contribute to machine learning, data science,
-        software engineering, AI/ML systems, research engineering, or analytics-focused teams.
-        I’m especially interested in roles involving real-world data, model evaluation, forecasting,
-        optimization, and scalable ML workflows.
-      </p>
+        <a class="btn primary" href="mailto:kumar.1178@osu.edu">Contact Me</a>
+      </div>
     </section>
 
     <section id="contact" class="section contact-section">
-      <div>
-        <p class="eyebrow">Contact</p>
-        <h2>Let’s connect</h2>
-        <p>
-          The fastest way to reach me is by email. I’m happy to discuss internships,
-          research roles, or technical projects.
-        </p>
-      </div>
+      <div class="container contact-grid">
+        <div>
+          <p class="label">Contact</p>
+          <h2>Let’s connect</h2>
+          <p>
+            The fastest way to reach me is by email. I’m open to internship opportunities,
+            research roles, and technical conversations.
+          </p>
+        </div>
 
-      <div class="contact-links">
-        <a href="mailto:kumar.1178@osu.edu">kumar.1178@osu.edu</a>
-        <a href="tel:+13808955433">+1 (380) 895-5433</a>
-        <a href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <div class="contact-links">
+          <a href="mailto:kumar.1178@osu.edu">kumar.1178@osu.edu</a>
+          <a href="tel:+13808955433">+1 (380) 895-5433</a>
+          <a href="https://github.com/Arnavvvkumar" target="_blank">GitHub</a>
+          <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>© 2026 Arnav Kumar</p>
-    <p>Built for internship recruiting and project visibility.</p>
+    <div class="container footer-wrap">
+      <p>© 2026 Arnav Kumar</p>
+      <p>Computer Science @ The Ohio State University</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
