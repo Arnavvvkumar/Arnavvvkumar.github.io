@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyEmail = document.getElementById("copyEmail");
   const copyStatus = document.getElementById("copyStatus");
 
+  const consoleTitle = document.getElementById("consoleTitle");
+  const consoleCommand = document.getElementById("consoleCommand");
+  const consoleNote = document.getElementById("consoleNote");
+  const consoleMeter = document.querySelector(".console-meter");
+
   document.addEventListener("pointermove", (event) => {
     if (!cursor) return;
     cursor.style.opacity = "1";
@@ -66,9 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        }
+        if (entry.isIntersecting) entry.target.classList.add("in-view");
       });
     },
     { threshold: 0.14 }
@@ -91,9 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   railItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      scrollToSection(item.dataset.scroll);
-    });
+    item.addEventListener("click", () => scrollToSection(item.dataset.scroll));
   });
 
   function updateActiveSection() {
@@ -124,13 +125,60 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateActiveSection);
   updateActiveSection();
 
+  const storyData = {
+    llm: {
+      title: "Edge LLM deployment",
+      command: "run_eval --fixed_prompts --gguf",
+      note: "Testing deployment tradeoffs across pruning, LoRA recovery, and quantization.",
+      bars: ["72%", "58%", "84%", "46%"]
+    },
+    glucose: {
+      title: "Glucose prediction",
+      command: "validate_glucose --loso --shap",
+      note: "Testing whether models generalize to fully unseen people, not just random held-out meals.",
+      bars: ["54%", "81%", "63%", "70%"]
+    }
+  };
+
+  function updateDeepConsole(key) {
+    const data = storyData[key];
+    if (!data) return;
+
+    if (consoleTitle) consoleTitle.textContent = data.title;
+    if (consoleCommand) consoleCommand.textContent = data.command;
+    if (consoleNote) consoleNote.textContent = data.note;
+
+    if (consoleMeter) {
+      [...consoleMeter.children].forEach((bar, index) => {
+        bar.style.setProperty("--level", data.bars[index] || "50%");
+      });
+    }
+
+    document.querySelectorAll(".story-card").forEach((card) => {
+      card.classList.toggle("active-story", card.dataset.story === key);
+    });
+  }
+
+  const storyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          updateDeepConsole(entry.target.dataset.story);
+        }
+      });
+    },
+    { threshold: 0.52 }
+  );
+
+  document.querySelectorAll(".story-card").forEach((card) => storyObserver.observe(card));
+
   document.querySelectorAll(".fold-toggle").forEach((button) => {
     button.addEventListener("click", () => {
       const panel = document.getElementById(button.dataset.fold);
       if (!panel) return;
 
       const isOpen = panel.classList.toggle("open");
-      button.textContent = isOpen ? "Close technical notes" : "Open technical notes";
+      button.textContent = isOpen ? "Close notes" : "Open notes";
     });
   });
 
