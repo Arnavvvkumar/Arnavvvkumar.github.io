@@ -1,305 +1,356 @@
-const body = document.body;
-const root = document.documentElement;
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add("js-ready");
 
-const cursor = document.querySelector(".cursor-glow");
-const progress = document.getElementById("missionProgress");
-const missionItems = document.querySelectorAll(".mission-item");
-const sections = document.querySelectorAll(".section-track");
-const typeLine = document.getElementById("typeLine");
-const themeToggle = document.getElementById("themeToggle");
+  const cursor = document.querySelector(".cursor-glow");
+  const revealItems = document.querySelectorAll(".reveal");
+  const navLinks = document.querySelectorAll(".nav-link[href^='#']");
+  const dockLinks = document.querySelectorAll(".dock-link");
+  const sectionTracks = document.querySelectorAll(".section-track");
+  const typeTarget = document.getElementById("terminalMode");
+  const copyEmailBtn = document.getElementById("copyEmailBtn");
+  const copyStatus = document.getElementById("copyStatus");
 
-const phrases = [
-  "mode: Summer 2027 internship search",
-  "focus: measurable ML systems",
-  "signal: evaluation > hype",
-  "stack: Python · PyTorch · XGBoost · llama.cpp"
-];
-
-let phraseIndex = 0;
-let charIndex = 0;
-let deleting = false;
-
-function typeLoop() {
-  if (!typeLine) return;
-
-  const phrase = phrases[phraseIndex];
-
-  if (!deleting) {
-    typeLine.textContent = phrase.slice(0, charIndex + 1);
-    charIndex += 1;
-
-    if (charIndex === phrase.length) {
-      deleting = true;
-      setTimeout(typeLoop, 1100);
-      return;
+  const deepDiveData = {
+    llm: {
+      subtitle: "Edge AI / LLM Systems",
+      title: "Edge Deployment and Compression of Small LLMs for IoT Devices",
+      summary:
+        "I worked on evaluating and compressing small language models for edge and IoT deployment, focusing on whether models like Qwen3.5, TinyLlama, and Gemma can run efficiently on constrained hardware while maintaining acceptable QA performance.",
+      pipeline: [
+        "Fixed-prompt QA pipeline",
+        "DepGraph MLP pruning",
+        "DepGraph + LoRA recovery",
+        "GGUF quantization sweeps",
+        "CPU / GPU benchmarking",
+        "Raspberry Pi deployment path"
+      ],
+      buildList: [
+        "Built a fixed-prompt QA evaluation pipeline using llama.cpp, GGUF models, and consistent prompts across SQuAD, BoolQ, and Natural Questions to avoid prompt-selection bias.",
+        "Benchmarked Qwen3.5 0.8B, TinyLlama 1.1B Chat, and Gemma 3 1B IT using local inference with llama-server, while tracking metrics like F1, EM, parse rate, model size, and inference speed.",
+        "Implemented DepGraph-based structural pruning on MLP layers such as gate_proj, up_proj, and down_proj at 1%, 3%, 5%, and 7% pruning levels, while intentionally avoiding attention pruning to reduce architectural damage.",
+        "Built DepGraph + LoRA recovery runs by training LoRA adapters after pruning, then merged recovered checkpoints back into full Hugging Face model folders for GGUF conversion and further benchmarking.",
+        "Ran quantization sweeps across Q8_0, Q6_K, Q5_K_M, and Q4_K_M for baseline, pruned, and LoRA-recovered models, then compared deployment tradeoffs on CPU and GPU."
+      ],
+      findingsList: [
+        "Qwen3.5 showed the strongest overall balance between QA performance and deployability.",
+        "Quantization was usually a better final deployment tradeoff than structural pruning because it reduced memory footprint without damaging model structure.",
+        "Pruning reduced dense HF/f16 size, but final Q4 GGUF size did not always shrink because awkward tensor shapes interacted badly with llama.cpp quantization behavior.",
+        "LoRA recovery was model-dependent: it helped some pruned checkpoints, but did not consistently recover quality, especially for Gemma at higher pruning levels.",
+        "TinyLlama baseline quantized models were usable, but pruning caused significant quality loss. Gemma baseline was usable, but became fragile under heavier DepGraph pruning and recovery."
+      ],
+      eval: "SQuAD · BoolQ · Natural Questions · fixed prompts",
+      tools: "PyTorch · Transformers · PEFT / LoRA · llama.cpp · GGUF",
+      takeaway: "Quantization beat pruning as the cleaner edge-deployment path"
+    },
+    glucose: {
+      subtitle: "Healthcare Machine Learning",
+      title: "Personalized Post-Meal Glucose Response Prediction Using Machine Learning",
+      summary:
+        "I’m working on a healthcare-focused ML project to predict post-meal glucose response using meal, biomarker, CGM, and gut-health data. The main targets are AUC and iAUC, with a strong focus on subject-independent generalization rather than optimistic random-split accuracy.",
+      pipeline: [
+        "Meal + biomarker feature engineering",
+        "LOSO evaluation",
+        "Leakage-aware tuning",
+        "Model comparison",
+        "SHAP analysis",
+        "Failure analysis"
+      ],
+      buildList: [
+        "Built a complete modeling pipeline around 391 meal-level samples from 41 participants using Python, pandas, scikit-learn, XGBoost, CatBoost, Random Forest, Gradient Boosting, SHAP, and Matplotlib.",
+        "Used Leave-One-Subject-Out cross-validation so that each held-out participant stayed fully unseen, making the evaluation closer to a real personalization/generalization problem.",
+        "For XGBoost tuning, used GroupKFold inside GridSearchCV and RandomizedSearchCV so meals from the same participant never leaked across training and validation folds.",
+        "Added Bland–Altman analysis, actual-vs-predicted plots, residual plots, per-subject R² views, and error-by-response-magnitude analysis to understand where the models fail.",
+        "Tested adding gut-health summary features and found that gut-only modeling performed poorly, while adding current Viome summary scores did not improve iAUC performance."
+      ],
+      findingsList: [
+        "AUC was more predictable than iAUC across model families.",
+        "SHAP showed Baseline_Libre strongly drove AUC prediction, while iAUC depended more on metabolic markers like HOMA, A1c, carbs, protein, and cholesterol-related features.",
+        "Bland–Altman analysis showed low overall bias but wide limits of agreement, meaning the model was not systematically wrong in one direction, but individual-level errors were still large.",
+        "Residual analysis showed regression-to-the-mean behavior: the model tended to overpredict low responses and underpredict high responses.",
+        "Gut-health summary scores did not add useful predictive signal in the current setup, though full microbiome bacteria features remain a future direction."
+      ],
+      eval: "LOSO · GroupKFold · SHAP · Bland–Altman",
+      tools: "Python · pandas · XGBoost · CatBoost · SHAP · Matplotlib",
+      takeaway: "Generalization to unseen people is the real difficulty, especially for iAUC"
     }
-  } else {
-    typeLine.textContent = phrase.slice(0, charIndex - 1);
-    charIndex -= 1;
+  };
 
-    if (charIndex === 0) {
-      deleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-    }
-  }
+  const diveSubtitle = document.getElementById("diveSubtitle");
+  const diveTitle = document.getElementById("diveTitle");
+  const diveSummary = document.getElementById("diveSummary");
+  const divePipeline = document.getElementById("divePipeline");
+  const diveBuildList = document.getElementById("diveBuildList");
+  const diveFindingsList = document.getElementById("diveFindingsList");
+  const diveEval = document.getElementById("diveEval");
+  const diveTools = document.getElementById("diveTools");
+  const diveTakeaway = document.getElementById("diveTakeaway");
+  const diveTabs = document.querySelectorAll(".dive-tab");
+  const openCaseButtons = document.querySelectorAll(".open-case");
 
-  setTimeout(typeLoop, deleting ? 30 : 45);
-}
+  function renderCase(key) {
+    const data = deepDiveData[key];
+    if (!data) return;
 
-typeLoop();
+    diveSubtitle.textContent = data.subtitle;
+    diveTitle.textContent = data.title;
+    diveSummary.textContent = data.summary;
+    diveEval.textContent = data.eval;
+    diveTools.textContent = data.tools;
+    diveTakeaway.textContent = data.takeaway;
 
-document.addEventListener("pointermove", (event) => {
-  root.style.setProperty("--mx", `${event.clientX}px`);
-  root.style.setProperty("--my", `${event.clientY}px`);
+    divePipeline.innerHTML = data.pipeline
+      .map((item) => `<span>${item}</span>`)
+      .join("");
 
-  if (cursor) {
-    cursor.style.left = `${event.clientX}px`;
-    cursor.style.top = `${event.clientY}px`;
-  }
-});
+    diveBuildList.innerHTML = data.buildList
+      .map((item) => `<li>${item}</li>`)
+      .join("");
 
-missionItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const target = document.getElementById(item.dataset.jump);
-    if (!target) return;
+    diveFindingsList.innerHTML = data.findingsList
+      .map((item) => `<li>${item}</li>`)
+      .join("");
 
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener("click", (event) => {
-    const target = document.querySelector(link.getAttribute("href"));
-    if (!target) return;
-
-    event.preventDefault();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-});
-
-function updateScroll() {
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const percent = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
-
-  if (progress) progress.style.width = `${percent}%`;
-
-  let active = "home";
-
-  sections.forEach((section) => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.4) {
-      active = section.id || "home";
-    }
-  });
-
-  missionItems.forEach((item) => {
-    item.classList.toggle("active", item.dataset.jump === active);
-  });
-}
-
-window.addEventListener("scroll", updateScroll, { passive: true });
-window.addEventListener("resize", updateScroll);
-updateScroll();
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("in-view");
+    diveTabs.forEach((tab) => {
+      tab.classList.toggle("active", tab.dataset.case === key);
     });
-  },
-  { threshold: 0.16 }
-);
-
-document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
-
-document.querySelectorAll(".tilt-card").forEach((card) => {
-  card.addEventListener("pointermove", (event) => {
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    const rotateX = ((y / rect.height) - 0.5) * -4;
-    const rotateY = ((x / rect.width) - 0.5) * 4;
-
-    card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-  });
-
-  card.addEventListener("pointerleave", () => {
-    card.style.transform = "";
-  });
-});
-
-document.querySelectorAll(".magnetic").forEach((button) => {
-  button.addEventListener("pointermove", (event) => {
-    const rect = button.getBoundingClientRect();
-    const x = event.clientX - rect.left - rect.width / 2;
-    const y = event.clientY - rect.top - rect.height / 2;
-
-    button.style.transform = `translate(${x * 0.12}px, ${y * 0.16}px)`;
-  });
-
-  button.addEventListener("pointerleave", () => {
-    button.style.transform = "";
-  });
-});
-
-const caseData = {
-  llm: {
-    type: "AI / ML Systems Research",
-    title: "Edge Deployment and Compression of Small LLMs for IoT Devices",
-    summary:
-      "Evaluated and compressed small language models for constrained edge and IoT deployment, including CPU-only systems and Raspberry Pi 3 testing paths.",
-    pipeline: ["Evaluate", "Prune", "Recover", "Quantize", "Benchmark"],
-    built: [
-      "Built a fixed-prompt QA evaluation pipeline using llama.cpp and GGUF models.",
-      "Benchmarked Qwen3.5 0.8B, TinyLlama 1.1B Chat, and Gemma 3 1B IT on SQuAD, BoolQ, and Natural Questions.",
-      "Tested DepGraph-based MLP pruning, LoRA recovery, and GGUF quantization sweeps across Q8_0, Q6_K, Q5_K_M, and Q4_K_M."
-    ],
-    found: [
-      "Quantization gave the strongest deployment tradeoff compared to structural pruning.",
-      "Qwen3.5 showed the best overall balance between QA quality and deployability.",
-      "Structural pruning reduced dense HF/f16 size, but did not always reduce final Q4 GGUF size due to quantization behavior."
-    ],
-    constraint: "Edge memory + inference speed",
-    eval: "SQuAD · BoolQ · Natural Questions",
-    tools: "PyTorch · HF · PEFT · llama.cpp · GGUF",
-    bars: [62, 76, 51, 84, 68]
-  },
-  glucose: {
-    type: "Healthcare Machine Learning Research",
-    title: "Personalized Post-Meal Glucose Response Prediction Using Machine Learning",
-    summary:
-      "Built a subject-independent ML pipeline to predict post-meal glucose AUC and iAUC using meal, biomarker, CGM, and gut-health data.",
-    pipeline: ["Clean", "Split", "Tune", "Explain", "Diagnose"],
-    built: [
-      "Modeled 391 meal-level samples across 41 participants using LOSO cross-validation.",
-      "Compared XGBoost, CatBoost, Random Forest, and Gradient Boosting with leakage-aware GroupKFold tuning.",
-      "Added Bland–Altman analysis, SHAP interpretation, residual plots, and per-subject failure analysis."
-    ],
-    found: [
-      "AUC was more predictable than iAUC across model families.",
-      "Baseline_Libre dominated AUC prediction, while iAUC depended more on metabolic and meal-response markers.",
-      "Gut-health summary scores did not improve iAUC performance in the current setup."
-    ],
-    constraint: "Generalization to unseen subjects",
-    eval: "LOSO · GroupKFold · SHAP · Bland–Altman",
-    tools: "Python · pandas · XGBoost · CatBoost · SHAP",
-    bars: [48, 58, 72, 66, 44]
   }
-};
 
-const caseTabs = document.querySelectorAll(".case-tab");
-const caseType = document.getElementById("caseType");
-const caseTitle = document.getElementById("caseTitle");
-const caseSummary = document.getElementById("caseSummary");
-const casePipeline = document.getElementById("casePipeline");
-const caseBuilt = document.getElementById("caseBuilt");
-const caseFound = document.getElementById("caseFound");
-const caseConstraint = document.getElementById("caseConstraint");
-const caseEval = document.getElementById("caseEval");
-const caseTools = document.getElementById("caseTools");
-const miniChart = document.getElementById("miniChart");
-
-function renderCase(key) {
-  const data = caseData[key];
-  if (!data) return;
-
-  caseType.textContent = data.type;
-  caseTitle.textContent = data.title;
-  caseSummary.textContent = data.summary;
-  caseConstraint.textContent = data.constraint;
-  caseEval.textContent = data.eval;
-  caseTools.textContent = data.tools;
-
-  casePipeline.innerHTML = data.pipeline.map((item) => `<span>${item}</span>`).join("");
-  caseBuilt.innerHTML = data.built.map((item) => `<li>${item}</li>`).join("");
-  caseFound.innerHTML = data.found.map((item) => `<li>${item}</li>`).join("");
-
-  miniChart.innerHTML = data.bars
-    .map((bar, index) => `<div style="--bar: ${bar}%; animation-delay: ${index * 50}ms"></div>`)
-    .join("");
-}
-
-caseTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    caseTabs.forEach((item) => item.classList.remove("active"));
-    tab.classList.add("active");
-    renderCase(tab.dataset.case);
+  diveTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      renderCase(tab.dataset.case);
+    });
   });
-});
 
-renderCase("llm");
+  openCaseButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const key = button.dataset.openCase;
+      renderCase(key);
+      document.getElementById("deep-dives").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  });
 
-themeToggle?.addEventListener("click", () => {
-  const isLight = body.dataset.theme === "light";
-  body.dataset.theme = isLight ? "" : "light";
-  localStorage.setItem("portfolio-theme", isLight ? "dark" : "light");
-});
+  renderCase("llm");
 
-if (localStorage.getItem("portfolio-theme") === "light") {
-  body.dataset.theme = "light";
-}
+  const typePhrases = [
+    "load_profile --target summer_2027",
+    "inspect_work --focus llm_systems",
+    "compare_models --qwen tinyllama gemma",
+    "evaluate_glucose --scheme loso"
+  ];
 
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas?.getContext("2d");
-let particles = [];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
 
-function resizeCanvas() {
-  if (!canvas || !ctx) return;
+  function typeLoop() {
+    if (!typeTarget) return;
+    const phrase = typePhrases[phraseIndex];
 
-  canvas.width = window.innerWidth * devicePixelRatio;
-  canvas.height = window.innerHeight * devicePixelRatio;
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
+    if (!deleting) {
+      typeTarget.textContent = phrase.slice(0, charIndex + 1);
+      charIndex += 1;
 
-  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      if (charIndex === phrase.length) {
+        deleting = true;
+        setTimeout(typeLoop, 1100);
+        return;
+      }
+    } else {
+      typeTarget.textContent = phrase.slice(0, charIndex - 1);
+      charIndex -= 1;
 
-  particles = Array.from({ length: Math.min(80, Math.floor(window.innerWidth / 18)) }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.22,
-    vy: (Math.random() - 0.5) * 0.22,
-    r: Math.random() * 1.8 + 0.6
-  }));
-}
-
-function draw() {
-  if (!canvas || !ctx) return;
-
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-  particles.forEach((p, i) => {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-    if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(98, 234, 255, 0.34)";
-    ctx.fill();
-
-    for (let j = i + 1; j < particles.length; j++) {
-      const q = particles[j];
-      const dx = p.x - q.x;
-      const dy = p.y - q.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 130) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = `rgba(167, 139, 250, ${0.14 * (1 - dist / 130)})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % typePhrases.length;
       }
     }
+
+    setTimeout(typeLoop, deleting ? 26 : 38);
+  }
+
+  typeLoop();
+
+  document.addEventListener("pointermove", (event) => {
+    if (!cursor) return;
+    cursor.style.left = `${event.clientX}px`;
+    cursor.style.top = `${event.clientY}px`;
+    cursor.style.opacity = "1";
   });
 
-  requestAnimationFrame(draw);
-}
+  document.addEventListener("pointerleave", () => {
+    if (!cursor) return;
+    cursor.style.opacity = "0";
+  });
 
-resizeCanvas();
-draw();
-window.addEventListener("resize", resizeCanvas);
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  revealItems.forEach((item) => revealObserver.observe(item));
+
+  function scrollToSection(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+      event.preventDefault();
+      scrollToSection(href.slice(1));
+    });
+  });
+
+  dockLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      scrollToSection(link.dataset.scroll);
+    });
+  });
+
+  function updateActiveSection() {
+    let activeId = "home";
+
+    sectionTracks.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.35 && rect.bottom >= window.innerHeight * 0.35) {
+        activeId = section.id;
+      }
+    });
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href")?.slice(1);
+      link.classList.toggle("active", href === activeId);
+    });
+
+    dockLinks.forEach((link) => {
+      link.classList.toggle("active", link.dataset.scroll === activeId);
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveSection, { passive: true });
+  window.addEventListener("resize", updateActiveSection);
+  updateActiveSection();
+
+  document.querySelectorAll(".tilt-card").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      if (window.innerWidth < 900) return;
+
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const rotateY = ((x / rect.width) - 0.5) * 5.5;
+      const rotateX = ((y / rect.height) - 0.5) * -5.5;
+
+      card.style.transform =
+        `perspective(1100px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "";
+    });
+  });
+
+  document.querySelectorAll(".magnetic").forEach((button) => {
+    button.addEventListener("pointermove", (event) => {
+      if (window.innerWidth < 900) return;
+
+      const rect = button.getBoundingClientRect();
+      const x = event.clientX - rect.left - rect.width / 2;
+      const y = event.clientY - rect.top - rect.height / 2;
+
+      button.style.transform = `translate(${x * 0.10}px, ${y * 0.14}px)`;
+    });
+
+    button.addEventListener("pointerleave", () => {
+      button.style.transform = "";
+    });
+  });
+
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText("kumar.1178@osu.edu");
+        copyStatus.textContent = "Copied: kumar.1178@osu.edu";
+      } catch (error) {
+        copyStatus.textContent = "Could not copy automatically — use kumar.1178@osu.edu";
+      }
+    });
+  }
+
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas?.getContext("2d");
+  let particles = [];
+
+  function resizeCanvas() {
+    if (!canvas || !ctx) return;
+
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * ratio;
+    canvas.height = window.innerHeight * ratio;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    particles = Array.from({ length: Math.min(72, Math.floor(window.innerWidth / 24)) }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.24,
+      vy: (Math.random() - 0.5) * 0.24,
+      r: Math.random() * 1.5 + 0.7
+    }));
+  }
+
+  function drawParticles() {
+    if (!ctx || !canvas) return;
+
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+      if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(105, 191, 255, 0.34)";
+      ctx.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const dx = p.x - q.x;
+        const dy = p.y - q.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(157, 124, 255, ${0.12 * (1 - dist / 130)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    });
+
+    requestAnimationFrame(drawParticles);
+  }
+
+  resizeCanvas();
+  drawParticles();
+  window.addEventListener("resize", resizeCanvas);
+});
