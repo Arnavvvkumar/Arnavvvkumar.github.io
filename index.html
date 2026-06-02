@@ -2,504 +2,436 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-  <title>Arnav Kumar | ML / Data / SWE Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Arnav Kumar | ML Systems Portfolio</title>
   <meta
     name="description"
-    content="Arnav Kumar portfolio - ML systems, LLM evaluation, edge deployment, personalized glucose prediction, and software engineering projects."
+    content="Arnav Kumar portfolio: ML systems, edge LLM deployment, model compression, glucose prediction, and applied software projects."
   />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
     rel="stylesheet"
   />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
-  <div class="bg-orb orb-a" aria-hidden="true"></div>
-  <div class="bg-orb orb-b" aria-hidden="true"></div>
   <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
   <header class="site-header">
-    <div class="container">
-      <nav class="nav-shell">
-        <a href="#home" class="brand nav-link">
-          <span class="brand-mark">AK</span>
-          <span class="brand-text">Arnav Kumar</span>
-        </a>
+    <div class="nav-shell">
+      <a href="#home" class="brand nav-link">
+        <span class="brand-mark">AK</span>
+        <span>Arnav Kumar</span>
+      </a>
 
-        <div class="nav-links">
-          <a href="#work" class="nav-link">Work</a>
-          <a href="#deep-dives" class="nav-link">Deep Dives</a>
-          <a href="#projects" class="nav-link">Projects</a>
-          <a href="#stack" class="nav-link">Stack</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </div>
-
-        <a href="assets/Arnav_Kumar_Resume.pdf" class="resume-button" target="_blank" rel="noopener">
-          Resume
-        </a>
+      <nav class="nav-links">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#deep-dives" class="nav-link">Deep Dives</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#stack" class="nav-link">Stack</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
+
+      <a class="resume-pill" href="assets/Arnav_Kumar_Resume.pdf" target="_blank" rel="noopener">
+        Resume
+      </a>
     </div>
   </header>
+
+  <aside class="mission-rail" aria-label="Section navigation">
+    <button class="rail-item active" data-scroll="home">
+      <span class="rail-num">01</span>
+      <span class="rail-label">Start</span>
+    </button>
+
+    <button class="rail-item" data-scroll="work">
+      <span class="rail-num">02</span>
+      <span class="rail-label">Work</span>
+    </button>
+
+    <button class="rail-item" data-scroll="deep-dives">
+      <span class="rail-num">03</span>
+      <span class="rail-label">Deep Dives</span>
+    </button>
+
+    <button class="rail-item" data-scroll="projects">
+      <span class="rail-num">04</span>
+      <span class="rail-label">Projects</span>
+    </button>
+
+    <button class="rail-item" data-scroll="stack">
+      <span class="rail-num">05</span>
+      <span class="rail-label">Stack</span>
+    </button>
+
+    <button class="rail-item" data-scroll="contact">
+      <span class="rail-num">06</span>
+      <span class="rail-label">Contact</span>
+    </button>
+
+    <div class="rail-progress">
+      <div id="railProgress"></div>
+    </div>
+  </aside>
 
   <main>
     <section id="home" class="hero section-track">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Computer Science @ The Ohio State University</p>
+          <p class="eyebrow">CS @ Ohio State · Summer 2027</p>
 
-          <h1 class="hero-title">
-            Building ML systems that survive real-world data.
+          <h1>
+            Arnav Kumar builds ML systems that can be tested.
           </h1>
 
-          <p class="hero-description">
-            I’m Arnav, a CS student focused on machine learning, data science,
-            software engineering, and research engineering. My work spans
-            <strong>LLM evaluation</strong>, <strong>edge deployment</strong>,
-            <strong>model compression</strong>, and
-            <strong>personalized glucose prediction</strong>.
+          <p class="hero-subtitle">
+            Edge LLM deployment, model compression, glucose-response prediction,
+            and applied ML systems.
           </p>
 
-          <div class="hero-focus">
+          <div class="hero-tags">
             <span>ML Systems</span>
             <span>Data Science</span>
-            <span>Software Engineering</span>
+            <span>SWE</span>
             <span>Research Engineering</span>
           </div>
 
           <div class="hero-actions">
-            <a href="assets/Arnav_Kumar_Resume.pdf" target="_blank" rel="noopener" class="button button-primary magnetic">
+            <a class="button button-primary magnetic" href="assets/Arnav_Kumar_Resume.pdf" target="_blank" rel="noopener">
               View Resume
             </a>
-            <a href="https://github.com/Arnavvvkumar" target="_blank" rel="noopener" class="button button-secondary magnetic">
+            <a class="button button-secondary magnetic" href="https://github.com/Arnavvvkumar" target="_blank" rel="noopener">
               GitHub
             </a>
-            <a href="https://www.linkedin.com/in/arnav-kumar-a269a1253/" target="_blank" rel="noopener" class="button button-secondary magnetic">
+            <a class="button button-secondary magnetic" href="https://www.linkedin.com/in/arnav-kumar-a269a1253/" target="_blank" rel="noopener">
               LinkedIn
             </a>
-            <a href="mailto:kumar.1178@osu.edu" class="button button-secondary magnetic">
-              Email
-            </a>
           </div>
         </div>
 
-        <aside class="hero-terminal reveal tilt-card">
-          <div class="terminal-header">
-            <div class="terminal-dots">
+        <div class="hero-visual reveal" style="--delay: 120ms">
+          <div class="terminal-card tilt-card">
+            <div class="terminal-top">
               <span></span>
               <span></span>
               <span></span>
+              <p>arnav@portfolio:~</p>
             </div>
-            <p>arnav@portfolio:~</p>
-          </div>
 
-          <div class="terminal-body">
-            <p class="terminal-command">
-              <span class="prompt">$</span>
-              <span id="terminalMode">load_profile --target summer_2027</span>
-            </p>
-            <p class="terminal-muted">Loading verified signals...</p>
+            <div class="terminal-body">
+              <p class="command">
+                <span>$</span>
+                <strong id="typedCommand">load_profile --target summer_2027</strong>
+              </p>
 
-            <div class="terminal-table">
+              <div class="terminal-line muted">verified signals loaded</div>
+
               <div class="terminal-row">
-                <span>School</span>
+                <span>school</span>
                 <strong>Ohio State University</strong>
               </div>
+
               <div class="terminal-row">
-                <span>Degree</span>
-                <strong>B.S. Computer Science • May 2028</strong>
+                <span>degree</span>
+                <strong>B.S. Computer Science · May 2028</strong>
               </div>
+
               <div class="terminal-row">
-                <span>Current work</span>
-                <strong>LLM optimization + personalized ML prediction</strong>
+                <span>current work</span>
+                <strong>LLM compression · healthcare ML</strong>
               </div>
+
               <div class="terminal-row">
-                <span>Target roles</span>
+                <span>target</span>
                 <strong>ML / Data / SWE / Research internships</strong>
-              </div>
-              <div class="terminal-row">
-                <span>What stands out</span>
-                <strong>Evaluation, failure analysis, deployability, tradeoffs</strong>
               </div>
             </div>
           </div>
-        </aside>
+
+          <div class="visual-stack">
+            <div class="mini-orbit">
+              <div class="core"></div>
+              <span class="ring ring-one"></span>
+              <span class="ring ring-two"></span>
+              <span class="ring ring-three"></span>
+            </div>
+
+            <div class="system-card">
+              <p>Edge LLM</p>
+              <strong>Qwen · TinyLlama · Gemma</strong>
+            </div>
+
+            <div class="system-card">
+              <p>Compression</p>
+              <strong>DepGraph · LoRA · GGUF</strong>
+            </div>
+
+            <div class="system-card">
+              <p>Healthcare ML</p>
+              <strong>LOSO · SHAP · Failure analysis</strong>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="container">
-        <div class="signal-grid reveal">
-          <article class="signal-card tilt-card">
-            <p class="signal-label">Edge LLM Work</p>
-            <h3>Qwen3.5 · TinyLlama · Gemma</h3>
-            <p>Benchmarked small LLMs for constrained deployment and QA evaluation.</p>
-          </article>
+      <div class="container signal-row reveal">
+        <article>
+          <span>01</span>
+          <strong>Evaluate</strong>
+          <p>fixed prompts, clean metrics, parsed outputs</p>
+        </article>
 
-          <article class="signal-card tilt-card">
-            <p class="signal-label">Compression Work</p>
-            <h3>DepGraph pruning + LoRA recovery + quantization</h3>
-            <p>Tested structural pruning, recovery runs, and GGUF quantization tradeoffs.</p>
-          </article>
+        <article>
+          <span>02</span>
+          <strong>Compress</strong>
+          <p>pruning, LoRA recovery, quantization</p>
+        </article>
 
-          <article class="signal-card tilt-card">
-            <p class="signal-label">Healthcare ML</p>
-            <h3>391 meals · 41 participants · LOSO</h3>
-            <p>Built subject-independent glucose-response models with leakage-aware evaluation.</p>
-          </article>
+        <article>
+          <span>03</span>
+          <strong>Generalize</strong>
+          <p>subject-independent validation, leakage control</p>
+        </article>
 
-          <article class="signal-card tilt-card">
-            <p class="signal-label">What I care about</p>
-            <h3>Accuracy · speed · generalization · failure cases</h3>
-            <p>I like projects where the hard part is making the model behavior honest.</p>
-          </article>
-        </div>
+        <article>
+          <span>04</span>
+          <strong>Explain</strong>
+          <p>SHAP, residuals, failure cases, tradeoffs</p>
+        </article>
       </div>
     </section>
 
-    <section id="work" class="section-track">
+    <section id="work" class="section section-track">
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Work</p>
-          <h2>Research and technical experience.</h2>
-          <p>
-            Not just “used X and Y.” The point of these roles is that they trained
-            me to build, test, and explain systems properly.
-          </p>
+          <h2>Compact experience. Real technical depth underneath.</h2>
         </div>
 
-        <div class="experience-grid">
-          <article class="experience-card reveal tilt-card">
-            <div class="experience-top">
-              <div>
-                <p class="experience-date">Mar 2026 – Present</p>
-                <h3>Research Assistant · Ohio State University</h3>
-              </div>
-              <span class="experience-tag">LLM Systems</span>
-            </div>
-            <p class="experience-copy">
-              Working on evaluation and compression of small LLMs for edge / IoT
-              deployment. Built local QA pipelines, ran pruning and quantization
-              experiments, and studied deployment tradeoffs across GPU, CPU, and
-              planned Raspberry Pi testing.
+        <div class="work-grid">
+          <article class="work-card reveal tilt-card">
+            <p class="date">Mar 2026 – Present</p>
+            <h3>Research Assistant · Ohio State</h3>
+            <p>
+              Small LLM evaluation and compression for edge / IoT deployment.
             </p>
+            <div class="chip-row">
+              <span>llama.cpp</span>
+              <span>GGUF</span>
+              <span>DepGraph</span>
+              <span>LoRA</span>
+            </div>
           </article>
 
-          <article class="experience-card reveal tilt-card">
-            <div class="experience-top">
-              <div>
-                <p class="experience-date">May 2026 – Present</p>
-                <h3>Research Intern · Kyoto University of Advanced Sciences</h3>
-              </div>
-              <span class="experience-tag">Healthcare ML</span>
-            </div>
-            <p class="experience-copy">
-              Building subject-independent machine learning pipelines for
-              post-meal glucose response prediction using meal, biomarker, CGM,
-              and gut-health features with LOSO evaluation and interpretability.
+          <article class="work-card reveal tilt-card" style="--delay: 90ms">
+            <p class="date">May 2026 – Present</p>
+            <h3>Research Intern · Kyoto University of Advanced Sciences</h3>
+            <p>
+              Personalized glucose-response prediction with leakage-aware ML.
             </p>
+            <div class="chip-row">
+              <span>XGBoost</span>
+              <span>CatBoost</span>
+              <span>LOSO</span>
+              <span>SHAP</span>
+            </div>
           </article>
 
-          <article class="experience-card reveal tilt-card">
-            <div class="experience-top">
-              <div>
-                <p class="experience-date">Jun 2025 – Jul 2025</p>
-                <h3>ISO Counsel Intern · CyberTryzub</h3>
-              </div>
-              <span class="experience-tag">Security / Process</span>
-            </div>
-            <p class="experience-copy">
-              Supported ISO 27001 documentation review, audit preparation,
-              and compliance gap analysis. Good experience in structured,
-              detail-heavy technical work.
+          <article class="work-card reveal tilt-card" style="--delay: 180ms">
+            <p class="date">Jun 2025 – Jul 2025</p>
+            <h3>ISO Counsel Intern · CyberTryzub</h3>
+            <p>
+              ISO 27001 documentation, audit support, and compliance gap review.
             </p>
+            <div class="chip-row">
+              <span>Security</span>
+              <span>ISO 27001</span>
+              <span>Risk Review</span>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="deep-dives" class="section-track">
+    <section id="deep-dives" class="section section-track">
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Deep Dives</p>
-          <h2>Not resume bullets. Actual project thinking.</h2>
-          <p>
-            These are the two projects I’d want an interviewer to ask me about,
-            because they show how I handle evaluation, failure cases, tradeoffs,
-            and technical depth.
-          </p>
+          <h2>Two projects I actually want interviews to ask about.</h2>
         </div>
 
-        <div class="deep-dive-layout">
-          <div class="dive-list reveal">
-            <button class="dive-tab active" data-case="llm">
-              <span class="dive-tab-label">01</span>
-              <span>
-                <strong>Edge LLM deployment</strong>
-                <small>Compression, benchmarking, QA evaluation</small>
-              </span>
-            </button>
-
-            <button class="dive-tab" data-case="glucose">
-              <span class="dive-tab-label">02</span>
-              <span>
-                <strong>Glucose prediction</strong>
-                <small>LOSO healthcare ML + failure analysis</small>
-              </span>
-            </button>
-          </div>
-
-          <article class="dive-panel reveal tilt-card">
-            <div class="dive-panel-top">
-              <p class="eyebrow" id="diveSubtitle">Edge AI / LLM Systems</p>
-              <h3 id="diveTitle">Edge Deployment and Compression of Small LLMs for IoT Devices</h3>
-              <p id="diveSummary"></p>
+        <div class="deep-grid">
+          <article class="deep-card reveal tilt-card">
+            <div class="deep-visual llm-visual">
+              <div class="model-node main">LLM</div>
+              <div class="model-node n1">Qwen</div>
+              <div class="model-node n2">LoRA</div>
+              <div class="model-node n3">GGUF</div>
+              <div class="model-node n4">Pi</div>
             </div>
 
-            <div class="dive-chip-row" id="divePipeline"></div>
+            <p class="eyebrow small">Edge AI / LLM Systems</p>
+            <h3>Edge Deployment and Compression of Small LLMs</h3>
+            <p class="deep-short">
+              Evaluated Qwen3.5, TinyLlama, and Gemma under fixed QA prompts,
+              then tested pruning, LoRA recovery, and GGUF quantization.
+            </p>
 
-            <div class="dive-columns">
-              <div class="dive-block">
-                <h4>What I actually did</h4>
-                <ul id="diveBuildList"></ul>
-              </div>
-
-              <div class="dive-block">
-                <h4>What I found</h4>
-                <ul id="diveFindingsList"></ul>
-              </div>
+            <div class="chip-row">
+              <span>DepGraph pruning</span>
+              <span>LoRA recovery</span>
+              <span>Q4/Q5/Q6/Q8</span>
             </div>
 
-            <div class="dive-meta">
-              <div class="meta-card">
-                <p>Evaluation</p>
-                <strong id="diveEval"></strong>
-              </div>
-              <div class="meta-card">
-                <p>Tools</p>
-                <strong id="diveTools"></strong>
-              </div>
-              <div class="meta-card">
-                <p>Takeaway</p>
-                <strong id="diveTakeaway"></strong>
-              </div>
+            <button class="fold-toggle" data-fold="llm-fold">
+              Open technical notes
+            </button>
+
+            <div id="llm-fold" class="fold-panel">
+              <ul>
+                <li>Pruned MLP layers like gate_proj, up_proj, and down_proj while avoiding attention pruning.</li>
+                <li>Compared baseline, pruned, and LoRA-recovered checkpoints after GGUF conversion.</li>
+                <li>Found quantization was usually cleaner than structural pruning for final edge deployment.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="deep-card reveal tilt-card" style="--delay: 120ms">
+            <div class="deep-visual glucose-visual">
+              <div class="wave"></div>
+              <div class="dot d1"></div>
+              <div class="dot d2"></div>
+              <div class="dot d3"></div>
+            </div>
+
+            <p class="eyebrow small">Healthcare ML</p>
+            <h3>Personalized Post-Meal Glucose Prediction</h3>
+            <p class="deep-short">
+              Built LOSO models for AUC and iAUC using meal, biomarker, CGM,
+              and gut-health features.
+            </p>
+
+            <div class="chip-row">
+              <span>391 meals</span>
+              <span>41 participants</span>
+              <span>LOSO</span>
+              <span>SHAP</span>
+            </div>
+
+            <button class="fold-toggle" data-fold="glucose-fold">
+              Open technical notes
+            </button>
+
+            <div id="glucose-fold" class="fold-panel">
+              <ul>
+                <li>Used GroupKFold inside model tuning to avoid subject-level leakage.</li>
+                <li>Found AUC was easier to predict than iAUC across model families.</li>
+                <li>Failure analysis showed regression-to-the-mean behavior and subject-specific errors.</li>
+              </ul>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section-track">
+    <section id="projects" class="section section-track">
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Projects</p>
-          <h2>Other builds worth discussing.</h2>
-          <p>
-            A few additional projects that show applied ML, interface building,
-            and technical range.
-          </p>
+          <h2>Other builds.</h2>
         </div>
 
         <div class="project-grid">
           <article class="project-card reveal tilt-card">
-            <p class="project-kicker">Computer Vision / App</p>
+            <div class="project-screen bars-screen">
+              <span style="--h: 46%"></span>
+              <span style="--h: 68%"></span>
+              <span style="--h: 52%"></span>
+              <span style="--h: 82%"></span>
+              <span style="--h: 74%"></span>
+            </div>
+            <h3>Energy Forecasting Pipeline</h3>
+            <p>Temporal features, anomaly cleaning, and regression-model comparison.</p>
+          </article>
+
+          <article class="project-card reveal tilt-card" style="--delay: 90ms">
+            <div class="project-screen scan-screen">
+              <span></span>
+            </div>
             <h3>AI-Powered Image Editor</h3>
-            <p>
-              Built an image editing tool integrating face analysis, verification,
-              and object editing workflows into one Gradio interface.
-            </p>
-            <ul>
-              <li>Used DeepFace-style components and CV pipelines.</li>
-              <li>Focused on making model-driven editing easier to use.</li>
-            </ul>
-            <div class="tag-row">
-              <span>Python</span>
-              <span>OpenCV</span>
-              <span>Gradio</span>
-              <span>Deep Learning</span>
-            </div>
+            <p>Computer vision and deep-learning workflows inside a Gradio interface.</p>
           </article>
 
-          <article class="project-card reveal tilt-card">
-            <p class="project-kicker">Forecasting / Data</p>
-            <h3>Energy Forecasting with Anomaly Detection</h3>
-            <p>
-              Built a large-scale forecasting pipeline using engineered temporal
-              features, anomaly cleaning, and regression-model comparison.
-            </p>
-            <ul>
-              <li>Worked with large sensor-reading data.</li>
-              <li>Compared models based on practical forecasting error.</li>
-            </ul>
-            <div class="tag-row">
-              <span>Python</span>
-              <span>pandas</span>
-              <span>scikit-learn</span>
-              <span>XGBoost</span>
+          <article class="project-card reveal tilt-card" style="--delay: 180ms">
+            <div class="project-screen molecule-screen">
+              <span></span><span></span><span></span><span></span>
             </div>
-          </article>
-
-          <article class="project-card reveal tilt-card">
-            <p class="project-kicker">Biomedical Research</p>
-            <h3>Mg-Based Nanorobots in Oncology</h3>
-            <p>
-              Led a research-focused engineering project on magnesium-based
-              nanorobots for targeted cancer drug delivery.
-            </p>
-            <ul>
-              <li>Evaluated material tradeoffs and biomedical feasibility.</li>
-              <li>Handled research writing and project coordination.</li>
-            </ul>
-            <div class="tag-row">
-              <span>Research</span>
-              <span>Technical Writing</span>
-              <span>Presentation</span>
-            </div>
-          </article>
-
-          <article class="project-card reveal tilt-card project-card-highlight">
-            <p class="project-kicker">Want the strongest projects?</p>
-            <h3>Open the deep dives.</h3>
-            <p>
-              The LLM deployment and glucose-response projects are where the most
-              technical depth is. Use the buttons below to jump straight there.
-            </p>
-            <div class="project-actions">
-              <button class="button button-primary open-case magnetic" data-open-case="llm">
-                LLM Deep Dive
-              </button>
-              <button class="button button-secondary open-case magnetic" data-open-case="glucose">
-                Glucose Deep Dive
-              </button>
-            </div>
+            <h3>Mg-Based Nanorobots</h3>
+            <p>Engineering honors research on targeted cancer drug delivery.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="stack" class="section-track">
+    <section id="stack" class="section section-track">
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Stack</p>
-          <h2>Tools I’m comfortable building with.</h2>
-          <p>
-            I’m strongest when I can combine experimentation, evaluation, and
-            implementation instead of treating them as separate worlds.
-          </p>
+          <h2>Tools I can talk through.</h2>
         </div>
 
-        <div class="stack-grid">
-          <article class="stack-card reveal tilt-card">
-            <h3>Languages</h3>
-            <div class="chip-cloud">
-              <span>Python</span>
-              <span>Java</span>
-              <span>C</span>
-              <span>C++</span>
-              <span>HTML/CSS</span>
-              <span>JavaScript</span>
-            </div>
-          </article>
-
-          <article class="stack-card reveal tilt-card">
-            <h3>ML / Data</h3>
-            <div class="chip-cloud">
-              <span>PyTorch</span>
-              <span>scikit-learn</span>
-              <span>XGBoost</span>
-              <span>CatBoost</span>
-              <span>pandas</span>
-              <span>Matplotlib</span>
-              <span>SHAP</span>
-              <span>Transformers</span>
-              <span>PEFT / LoRA</span>
-            </div>
-          </article>
-
-          <article class="stack-card reveal tilt-card">
-            <h3>Model Deployment / Systems</h3>
-            <div class="chip-cloud">
-              <span>llama.cpp</span>
-              <span>GGUF</span>
-              <span>llama-server</span>
-              <span>CPU benchmarking</span>
-              <span>GPU benchmarking</span>
-              <span>PowerShell automation</span>
-            </div>
-          </article>
-
-          <article class="stack-card reveal tilt-card">
-            <h3>Other Tools</h3>
-            <div class="chip-cloud">
-              <span>Git / GitHub</span>
-              <span>OpenCV</span>
-              <span>Gradio</span>
-              <span>MATLAB</span>
-              <span>SolidWorks</span>
-            </div>
-          </article>
+        <div class="stack-cloud reveal">
+          <span>Python</span>
+          <span>Java</span>
+          <span>C/C++</span>
+          <span>PyTorch</span>
+          <span>Transformers</span>
+          <span>PEFT / LoRA</span>
+          <span>llama.cpp</span>
+          <span>GGUF</span>
+          <span>XGBoost</span>
+          <span>CatBoost</span>
+          <span>SHAP</span>
+          <span>pandas</span>
+          <span>scikit-learn</span>
+          <span>OpenCV</span>
+          <span>Gradio</span>
+          <span>MATLAB</span>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="section-track">
+    <section id="contact" class="section contact-section section-track">
       <div class="container">
-        <article class="contact-shell reveal tilt-card">
+        <div class="contact-card reveal tilt-card">
           <p class="eyebrow">Contact</p>
-          <h2>Looking for the short version?</h2>
-          <p class="contact-copy">
-            I’m applying for Summer 2027 internships in ML, data science, software
-            engineering, AI/ML systems, and research-engineering-focused teams.
-            If you want the quick version, the best summary is:
-            <strong>I like building measurable ML systems and explaining the tradeoffs honestly.</strong>
+          <h2>Short version?</h2>
+          <p>
+            I’m looking for Summer 2027 internships where I can build measurable
+            ML, data, or software systems.
           </p>
 
           <div class="contact-actions">
-            <a href="mailto:kumar.1178@osu.edu" class="button button-primary magnetic">Email Me</a>
-            <a href="assets/Arnav_Kumar_Resume.pdf" target="_blank" rel="noopener" class="button button-secondary magnetic">Resume</a>
-            <a href="https://github.com/Arnavvvkumar" target="_blank" rel="noopener" class="button button-secondary magnetic">GitHub</a>
-            <a href="https://www.linkedin.com/in/arnav-kumar-a269a1253/" target="_blank" rel="noopener" class="button button-secondary magnetic">LinkedIn</a>
-            <button id="copyEmailBtn" class="button button-secondary magnetic">Copy Email</button>
+            <a class="button button-primary magnetic" href="mailto:kumar.1178@osu.edu">Email Me</a>
+            <a class="button button-secondary magnetic" href="assets/Arnav_Kumar_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+            <a class="button button-secondary magnetic" href="https://github.com/Arnavvvkumar" target="_blank" rel="noopener">GitHub</a>
+            <a class="button button-secondary magnetic" href="https://www.linkedin.com/in/arnav-kumar-a269a1253/" target="_blank" rel="noopener">LinkedIn</a>
+            <button id="copyEmail" class="button button-secondary magnetic">Copy Email</button>
           </div>
 
-          <div class="contact-note" id="copyStatus">
-            Email: kumar.1178@osu.edu
-          </div>
-        </article>
+          <p id="copyStatus" class="copy-status">kumar.1178@osu.edu</p>
+        </div>
       </div>
     </section>
   </main>
-
-  <div class="floating-dock" aria-label="Section navigator">
-    <button class="dock-link active" data-scroll="home">
-      <span class="dock-num">01</span>
-      <span>Start</span>
-    </button>
-    <button class="dock-link" data-scroll="work">
-      <span class="dock-num">02</span>
-      <span>Work</span>
-    </button>
-    <button class="dock-link" data-scroll="deep-dives">
-      <span class="dock-num">03</span>
-      <span>Deep Dives</span>
-    </button>
-    <button class="dock-link" data-scroll="projects">
-      <span class="dock-num">04</span>
-      <span>Projects</span>
-    </button>
-    <button class="dock-link" data-scroll="stack">
-      <span class="dock-num">05</span>
-      <span>Stack</span>
-    </button>
-    <button class="dock-link" data-scroll="contact">
-      <span class="dock-num">06</span>
-      <span>Contact</span>
-    </button>
-  </div>
 
   <script src="script.js"></script>
 </body>
