@@ -1,18 +1,18 @@
-const root = document.documentElement;
 const body = document.body;
+const root = document.documentElement;
 
-const scenes = document.querySelectorAll(".scene");
-const steps = document.querySelectorAll(".console-step");
-const progress = document.getElementById("pageProgress");
 const cursor = document.querySelector(".cursor-glow");
-const typingLine = document.getElementById("typingLine");
+const progress = document.getElementById("missionProgress");
+const missionItems = document.querySelectorAll(".mission-item");
+const sections = document.querySelectorAll(".section-track");
+const typeLine = document.getElementById("typeLine");
 const themeToggle = document.getElementById("themeToggle");
 
 const phrases = [
-  "status: evaluation-first builder",
-  "focus: ML systems · data science · SWE",
   "mode: Summer 2027 internship search",
-  "constraint: measurable results over hype"
+  "focus: measurable ML systems",
+  "signal: evaluation > hype",
+  "stack: Python · PyTorch · XGBoost · llama.cpp"
 ];
 
 let phraseIndex = 0;
@@ -20,21 +20,21 @@ let charIndex = 0;
 let deleting = false;
 
 function typeLoop() {
-  if (!typingLine) return;
+  if (!typeLine) return;
 
   const phrase = phrases[phraseIndex];
 
   if (!deleting) {
-    typingLine.textContent = phrase.slice(0, charIndex + 1);
+    typeLine.textContent = phrase.slice(0, charIndex + 1);
     charIndex += 1;
 
     if (charIndex === phrase.length) {
       deleting = true;
-      setTimeout(typeLoop, 1200);
+      setTimeout(typeLoop, 1100);
       return;
     }
   } else {
-    typingLine.textContent = phrase.slice(0, charIndex - 1);
+    typeLine.textContent = phrase.slice(0, charIndex - 1);
     charIndex -= 1;
 
     if (charIndex === 0) {
@@ -43,51 +43,31 @@ function typeLoop() {
     }
   }
 
-  setTimeout(typeLoop, deleting ? 32 : 46);
+  setTimeout(typeLoop, deleting ? 30 : 45);
 }
 
 typeLoop();
 
-function updateScrollProgress() {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const percentage = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-  if (progress) {
-    progress.style.width = `${percentage}%`;
-  }
-
-  let activeScene = "home";
-  scenes.forEach((scene) => {
-    const rect = scene.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.38 && rect.bottom >= window.innerHeight * 0.38) {
-      activeScene = scene.dataset.scene;
-    }
-  });
-
-  steps.forEach((step) => {
-    step.classList.toggle("active", step.dataset.track === activeScene);
-  });
-}
-
-window.addEventListener("scroll", updateScrollProgress, { passive: true });
-window.addEventListener("resize", updateScrollProgress);
-updateScrollProgress();
-
 document.addEventListener("pointermove", (event) => {
-  const x = event.clientX;
-  const y = event.clientY;
-
-  root.style.setProperty("--mx", `${x}px`);
-  root.style.setProperty("--my", `${y}px`);
+  root.style.setProperty("--mx", `${event.clientX}px`);
+  root.style.setProperty("--my", `${event.clientY}px`);
 
   if (cursor) {
-    cursor.style.left = `${x}px`;
-    cursor.style.top = `${y}px`;
+    cursor.style.left = `${event.clientX}px`;
+    cursor.style.top = `${event.clientY}px`;
   }
 });
 
-document.querySelectorAll("a[href^='#']").forEach((link) => {
+missionItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const target = document.getElementById(item.dataset.jump);
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (event) => {
     const target = document.querySelector(link.getAttribute("href"));
     if (!target) return;
@@ -97,63 +77,40 @@ document.querySelectorAll("a[href^='#']").forEach((link) => {
   });
 });
 
+function updateScroll() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const percent = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+
+  if (progress) progress.style.width = `${percent}%`;
+
+  let active = "home";
+
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.4) {
+      active = section.id || "home";
+    }
+  });
+
+  missionItems.forEach((item) => {
+    item.classList.toggle("active", item.dataset.jump === active);
+  });
+}
+
+window.addEventListener("scroll", updateScroll, { passive: true });
+window.addEventListener("resize", updateScroll);
+updateScroll();
+
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-      }
+      if (entry.isIntersecting) entry.target.classList.add("in-view");
     });
   },
-  { threshold: 0.18 }
+  { threshold: 0.16 }
 );
 
-document.querySelectorAll(".reveal").forEach((element) => {
-  revealObserver.observe(element);
-});
-
-function animateCount(element) {
-  const target = Number(element.dataset.count);
-  if (!target || element.dataset.done) return;
-
-  element.dataset.done = "true";
-  const duration = 1100;
-  const start = performance.now();
-
-  function frame(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const value = Math.floor(target * eased);
-
-    if (target >= 1000000) {
-      element.textContent = `${(value / 1000000).toFixed(1)}M+`;
-    } else {
-      element.textContent = value;
-    }
-
-    if (progress < 1) {
-      requestAnimationFrame(frame);
-    } else {
-      if (target >= 1000000) element.textContent = "2M+";
-      else element.textContent = String(target);
-    }
-  }
-
-  requestAnimationFrame(frame);
-}
-
-const countObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) animateCount(entry.target);
-    });
-  },
-  { threshold: 0.45 }
-);
-
-document.querySelectorAll("[data-count]").forEach((element) => {
-  countObserver.observe(element);
-});
+document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
 document.querySelectorAll(".tilt-card").forEach((card) => {
   card.addEventListener("pointermove", (event) => {
@@ -161,12 +118,10 @@ document.querySelectorAll(".tilt-card").forEach((card) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    const rotateX = ((y / rect.height) - 0.5) * -5;
-    const rotateY = ((x / rect.width) - 0.5) * 5;
+    const rotateX = ((y / rect.height) - 0.5) * -4;
+    const rotateY = ((x / rect.width) - 0.5) * 4;
 
     card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-    card.style.setProperty("--card-x", `${x}px`);
-    card.style.setProperty("--card-y", `${y}px`);
   });
 
   card.addEventListener("pointerleave", () => {
@@ -180,7 +135,7 @@ document.querySelectorAll(".magnetic").forEach((button) => {
     const x = event.clientX - rect.left - rect.width / 2;
     const y = event.clientY - rect.top - rect.height / 2;
 
-    button.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+    button.style.transform = `translate(${x * 0.12}px, ${y * 0.16}px)`;
   });
 
   button.addEventListener("pointerleave", () => {
@@ -188,112 +143,92 @@ document.querySelectorAll(".magnetic").forEach((button) => {
   });
 });
 
-const filterButtons = document.querySelectorAll(".filter-btn");
-const projectCards = document.querySelectorAll(".project-card");
-
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const filter = button.dataset.filter;
-
-    filterButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-
-    projectCards.forEach((card) => {
-      const category = card.dataset.category || "";
-      const shouldShow = filter === "all" || category.includes(filter);
-
-      card.classList.toggle("hidden", !shouldShow);
-    });
-  });
-});
-
-const labData = {
+const caseData = {
   llm: {
-    title: "LLM Evaluation",
-    score: "52% F1",
-    note: "Compressing a model is easy. Keeping behavior measurable is the real problem.",
-    metricOne: "Answer extraction",
-    metricTwo: "Parsing failures",
-    metricThree: "Fixed prompts",
-    bars: [46, 54, 61, 58, 70, 76]
+    type: "AI / ML Systems Research",
+    title: "Edge Deployment and Compression of Small LLMs for IoT Devices",
+    summary:
+      "Evaluated and compressed small language models for constrained edge and IoT deployment, including CPU-only systems and Raspberry Pi 3 testing paths.",
+    pipeline: ["Evaluate", "Prune", "Recover", "Quantize", "Benchmark"],
+    built: [
+      "Built a fixed-prompt QA evaluation pipeline using llama.cpp and GGUF models.",
+      "Benchmarked Qwen3.5 0.8B, TinyLlama 1.1B Chat, and Gemma 3 1B IT on SQuAD, BoolQ, and Natural Questions.",
+      "Tested DepGraph-based MLP pruning, LoRA recovery, and GGUF quantization sweeps across Q8_0, Q6_K, Q5_K_M, and Q4_K_M."
+    ],
+    found: [
+      "Quantization gave the strongest deployment tradeoff compared to structural pruning.",
+      "Qwen3.5 showed the best overall balance between QA quality and deployability.",
+      "Structural pruning reduced dense HF/f16 size, but did not always reduce final Q4 GGUF size due to quantization behavior."
+    ],
+    constraint: "Edge memory + inference speed",
+    eval: "SQuAD · BoolQ · Natural Questions",
+    tools: "PyTorch · HF · PEFT · llama.cpp · GGUF",
+    bars: [62, 76, 51, 84, 68]
   },
-  forecasting: {
-    title: "Forecasting",
-    score: "0.020 RMSE",
-    note: "Forecasting improves only when anomaly handling and temporal features are treated carefully.",
-    metricOne: "Temporal features",
-    metricTwo: "Anomaly drift",
-    metricThree: "XGBoost",
-    bars: [76, 68, 58, 49, 42, 35]
-  },
-  bio: {
-    title: "Bio ML",
-    score: "R² ≈ .60",
-    note: "Subject-independent validation matters because leakage can make weak models look strong.",
-    metricOne: "LOSO split",
-    metricTwo: "iAUC gap",
-    metricThree: "GroupKFold",
-    bars: [38, 52, 62, 65, 59, 72]
+  glucose: {
+    type: "Healthcare Machine Learning Research",
+    title: "Personalized Post-Meal Glucose Response Prediction Using Machine Learning",
+    summary:
+      "Built a subject-independent ML pipeline to predict post-meal glucose AUC and iAUC using meal, biomarker, CGM, and gut-health data.",
+    pipeline: ["Clean", "Split", "Tune", "Explain", "Diagnose"],
+    built: [
+      "Modeled 391 meal-level samples across 41 participants using LOSO cross-validation.",
+      "Compared XGBoost, CatBoost, Random Forest, and Gradient Boosting with leakage-aware GroupKFold tuning.",
+      "Added Bland–Altman analysis, SHAP interpretation, residual plots, and per-subject failure analysis."
+    ],
+    found: [
+      "AUC was more predictable than iAUC across model families.",
+      "Baseline_Libre dominated AUC prediction, while iAUC depended more on metabolic and meal-response markers.",
+      "Gut-health summary scores did not improve iAUC performance in the current setup."
+    ],
+    constraint: "Generalization to unseen subjects",
+    eval: "LOSO · GroupKFold · SHAP · Bland–Altman",
+    tools: "Python · pandas · XGBoost · CatBoost · SHAP",
+    bars: [48, 58, 72, 66, 44]
   }
 };
 
-const labTabs = document.querySelectorAll(".lab-tab");
-const labTitle = document.getElementById("labTitle");
-const labScore = document.getElementById("labScore");
-const labNote = document.getElementById("labNote");
-const metricOne = document.getElementById("metricOne");
-const metricTwo = document.getElementById("metricTwo");
-const metricThree = document.getElementById("metricThree");
-const chart = document.getElementById("chart");
-const pressureSlider = document.getElementById("pressureSlider");
-const strictnessSlider = document.getElementById("strictnessSlider");
+const caseTabs = document.querySelectorAll(".case-tab");
+const caseType = document.getElementById("caseType");
+const caseTitle = document.getElementById("caseTitle");
+const caseSummary = document.getElementById("caseSummary");
+const casePipeline = document.getElementById("casePipeline");
+const caseBuilt = document.getElementById("caseBuilt");
+const caseFound = document.getElementById("caseFound");
+const caseConstraint = document.getElementById("caseConstraint");
+const caseEval = document.getElementById("caseEval");
+const caseTools = document.getElementById("caseTools");
+const miniChart = document.getElementById("miniChart");
 
-let currentLab = "llm";
+function renderCase(key) {
+  const data = caseData[key];
+  if (!data) return;
 
-function renderLab() {
-  const data = labData[currentLab];
-  if (!data || !chart) return;
+  caseType.textContent = data.type;
+  caseTitle.textContent = data.title;
+  caseSummary.textContent = data.summary;
+  caseConstraint.textContent = data.constraint;
+  caseEval.textContent = data.eval;
+  caseTools.textContent = data.tools;
 
-  const pressure = Number(pressureSlider?.value || 5);
-  const strictness = Number(strictnessSlider?.value || 5);
-  const modifier = (pressure - strictness) * 1.4;
+  casePipeline.innerHTML = data.pipeline.map((item) => `<span>${item}</span>`).join("");
+  caseBuilt.innerHTML = data.built.map((item) => `<li>${item}</li>`).join("");
+  caseFound.innerHTML = data.found.map((item) => `<li>${item}</li>`).join("");
 
-  labTitle.textContent = data.title;
-  labScore.textContent = data.score;
-  labNote.textContent = data.note;
-  metricOne.textContent = data.metricOne;
-  metricTwo.textContent = data.metricTwo;
-  metricThree.textContent = data.metricThree;
-
-  chart.innerHTML = "";
-
-  data.bars.forEach((bar, index) => {
-    const adjusted = Math.max(18, Math.min(92, bar + modifier + index * 1.2));
-    const barElement = document.createElement("div");
-    barElement.className = "chart-bar";
-    barElement.style.setProperty("--bar", `${adjusted}%`);
-    barElement.style.animationDelay = `${index * 45}ms`;
-
-    const shine = document.createElement("span");
-    barElement.appendChild(shine);
-    chart.appendChild(barElement);
-  });
+  miniChart.innerHTML = data.bars
+    .map((bar, index) => `<div style="--bar: ${bar}%; animation-delay: ${index * 50}ms"></div>`)
+    .join("");
 }
 
-labTabs.forEach((tab) => {
+caseTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    currentLab = tab.dataset.lab;
-
-    labTabs.forEach((item) => item.classList.remove("active"));
+    caseTabs.forEach((item) => item.classList.remove("active"));
     tab.classList.add("active");
-
-    renderLab();
+    renderCase(tab.dataset.case);
   });
 });
 
-pressureSlider?.addEventListener("input", renderLab);
-strictnessSlider?.addEventListener("input", renderLab);
-renderLab();
+renderCase("llm");
 
 themeToggle?.addEventListener("click", () => {
   const isLight = body.dataset.theme === "light";
@@ -301,24 +236,23 @@ themeToggle?.addEventListener("click", () => {
   localStorage.setItem("portfolio-theme", isLight ? "dark" : "light");
 });
 
-const savedTheme = localStorage.getItem("portfolio-theme");
-if (savedTheme === "light") {
+if (localStorage.getItem("portfolio-theme") === "light") {
   body.dataset.theme = "light";
 }
 
-const canvas = document.getElementById("matrixCanvas");
+const canvas = document.getElementById("bgCanvas");
 const ctx = canvas?.getContext("2d");
-
 let particles = [];
 
 function resizeCanvas() {
   if (!canvas || !ctx) return;
 
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.width = window.innerWidth * devicePixelRatio;
+  canvas.height = window.innerHeight * devicePixelRatio;
   canvas.style.width = `${window.innerWidth}px`;
   canvas.style.height = `${window.innerHeight}px`;
-  ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
 
   particles = Array.from({ length: Math.min(80, Math.floor(window.innerWidth / 18)) }, () => ({
     x: Math.random() * window.innerWidth,
@@ -329,7 +263,7 @@ function resizeCanvas() {
   }));
 }
 
-function drawCanvas() {
+function draw() {
   if (!canvas || !ctx) return;
 
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -343,7 +277,7 @@ function drawCanvas() {
 
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(94, 231, 255, 0.38)";
+    ctx.fillStyle = "rgba(98, 234, 255, 0.34)";
     ctx.fill();
 
     for (let j = i + 1; j < particles.length; j++) {
@@ -363,10 +297,9 @@ function drawCanvas() {
     }
   });
 
-  requestAnimationFrame(drawCanvas);
+  requestAnimationFrame(draw);
 }
 
 resizeCanvas();
-drawCanvas();
-
+draw();
 window.addEventListener("resize", resizeCanvas);
