@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Arnav Kumar - Ohio State CS student building ML systems, data science pipelines, and evaluation tools.">
+  <meta property="og:title" content="Arnav Kumar - ML Systems Portfolio">
+  <meta property="og:description" content="Applied ML, model optimization, glucose response prediction, energy forecasting, and research engineering.">
+  <meta property="og:type" content="website">
+  <title>Arnav Kumar - ML Systems Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="signalCanvas" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="brand" href="#top">AK</a>
+    <nav aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#lab">Lab</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="resume-link" href="assets/Arnav_Kumar_Resume.pdf">Resume</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-kicker">
+        <span>Ohio State CS</span>
+        <span>Applied ML</span>
+        <span>Summer 2027 internships</span>
+      </div>
+      <h1>Arnav Kumar builds ML systems that survive messy real-world data.</h1>
+      <p class="hero-copy">
+        Research engineer focused on model optimization, evaluation pipelines, time-series forecasting, and data products that make model behavior easier to inspect.
+      </p>
+      <div class="hero-actions">
+        <a class="primary" href="#work">Explore work</a>
+        <a href="assets/Arnav_Kumar_Resume.pdf">Download resume</a>
+        <a href="mailto:kumar.1178@osu.edu">kumar.1178@osu.edu</a>
+      </div>
+      <div class="hero-metrics" aria-label="Profile highlights">
+        <article>
+          <strong>2M+</strong>
+          <span>energy readings modeled</span>
+        </article>
+        <article>
+          <strong>41</strong>
+          <span>participants in glucose prediction research</span>
+        </article>
+        <article>
+          <strong>44% / 52%</strong>
+          <span>SQuAD EM/F1 after eval tuning</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="status-strip" aria-label="Recruiter snapshot">
+      <p><span>Location</span> Columbus, Ohio</p>
+      <p><span>Degree</span> B.S. Computer Science, May 2028</p>
+      <p><span>Work auth</span> F-1 student, CPT/OPT eligible, future sponsorship needed</p>
+      <p><span>Focus</span> ML systems, data science, software engineering</p>
+    </section>
+
+    <section id="work" class="section work-section">
+      <div class="section-heading">
+        <p>Selected Work</p>
+        <h2>Projects told like engineering case studies, not bullet dumps.</h2>
+      </div>
+      <div class="case-grid">
+        <article class="case-card featured">
+          <div class="case-media">
+            <img src="assets/ml-console-preview.png" alt="Applied ML console with heatmap and time-series chart">
+          </div>
+          <div class="case-body">
+            <span class="case-type">Forecasting + anomaly detection</span>
+            <h3>Energy Forecasting Pipeline</h3>
+            <p>Built a time-series forecasting workflow over 2M+ readings, engineered 25 temporal features, cleaned anomalies, and compared regression models for stable prediction.</p>
+            <dl>
+              <div><dt>Best model</dt><dd>XGBoost</dd></div>
+              <div><dt>Metrics</dt><dd>MAE 0.0123, RMSE 0.0200</dd></div>
+              <div><dt>Stack</dt><dd>Python, pandas, scikit-learn, XGBoost</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="case-card">
+          <span class="case-type">Research engineering</span>
+          <h3>LLM Evaluation + Optimization</h3>
+          <p>Built local GPU inference and QA benchmarking around Qwen2.5, Torch-Pruning, llama.cpp, llama-server, SQuAD, BoolQ, and Natural Questions.</p>
+          <ul>
+            <li>Structured pruning and quantization experiments.</li>
+            <li>Prompt and answer-extraction improvements for QA scoring.</li>
+            <li>Approx. 44% EM / 52% F1 on SQuAD evaluation.</li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <span class="case-type">Personalized ML</span>
+          <h3>Glucose Response Prediction</h3>
+          <p>Modeled post-meal glucose response using wearable, biomarker, and meal data under leakage-aware LOSO evaluation across 41 participants.</p>
+          <ul>
+            <li>XGBoost, CatBoost, Random Forest, Gradient Boosting.</li>
+            <li>GroupKFold and RandomizedSearchCV tuning.</li>
+            <li>Approx. R2 0.60 for AUC prediction.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="research" class="section research-section">
+      <div class="section-heading">
+        <p>Research Direction</p>
+        <h2>The through-line: make model behavior measurable, deployable, and honest.</h2>
+      </div>
+      <div class="research-map">
+        <article>
+          <span>01</span>
+          <h3>Compress</h3>
+          <p>Reduce inference cost through pruning and quantization while preserving answer quality.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Evaluate</h3>
+          <p>Use benchmark tasks, extraction logic, and error analysis to make model performance legible.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Personalize</h3>
+          <p>Build subject-independent ML pipelines for biomedical signals where leakage can quietly wreck results.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Ship</h3>
+          <p>Turn analysis into usable interfaces, reproducible pipelines, and clear engineering narratives.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="lab" class="section lab-section">
+      <div class="lab-copy">
+        <p>Interactive Lab</p>
+        <h2>Live model-behavior dashboard</h2>
+        <p>Toggle the scenario to see how the same portfolio story changes across evaluation, forecasting, and personalization work.</p>
+        <div class="segmented" role="tablist" aria-label="Lab mode">
+          <button class="active" data-mode="eval" type="button">LLM Eval</button>
+          <button data-mode="forecast" type="button">Forecasting</button>
+          <button data-mode="bio" type="button">Bio ML</button>
+        </div>
+      </div>
+      <div class="lab-panel">
+        <div class="lab-top">
+          <div>
+            <span id="labLabel">SQuAD answer extraction</span>
+            <strong id="labScore">52% F1</strong>
+          </div>
+          <p id="labNote">Prompt tuning and extraction logic moved the benchmark from raw responses toward measurable answers.</p>
+        </div>
+        <canvas id="labChart" width="920" height="390" aria-label="Interactive chart showing model metrics"></canvas>
+      </div>
+    </section>
+
+    <section id="experience" class="section experience-section">
+      <div class="section-heading">
+        <p>Experience</p>
+        <h2>Research, security, and engineering work with practical outputs.</h2>
+      </div>
+      <div class="timeline">
+        <article>
+          <time>Mar 2026 - Present</time>
+          <div>
+            <h3>Research Assistant - Ohio State University</h3>
+            <p>LLM pruning, quantization, local inference, and QA evaluation with Prof. Brijesh Soni.</p>
+          </div>
+        </article>
+        <article>
+          <time>May 2026 - Present</time>
+          <div>
+            <h3>Research Intern - Kyoto University of Advanced Sciences</h3>
+            <p>Post-meal glucose response prediction with wearable, biomarker, and meal data under LOSO evaluation.</p>
+          </div>
+        </article>
+        <article>
+          <time>Jun 2025 - Jul 2025</time>
+          <div>
+            <h3>ISO Counsel Intern - CyberTryzub</h3>
+            <p>Cybersecurity audit calls, ISO 27001 documentation review, and compliance gap analysis for startups.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section stack-section">
+      <div class="section-heading">
+        <p>Stack</p>
+        <h2>Comfortable moving from research notebook to working artifact.</h2>
+      </div>
+      <div class="stack-grid">
+        <article><h3>Languages</h3><p>Python, Java, C/C++, HTML/CSS</p></article>
+        <article><h3>ML / Data</h3><p>TensorFlow/Keras, NumPy, pandas, scikit-learn, Matplotlib, Seaborn</p></article>
+        <article><h3>Systems</h3><p>Git/GitHub, ONNX, OpenCV, Gradio, MATLAB, SolidWorks</p></article>
+        <article><h3>Concepts</h3><p>Deep Learning, Time-Series Modeling, Model Optimization, Data Engineering</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div>
+        <p>Contact</p>
+        <h2>Want the short version? I like building measurable ML systems.</h2>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:kumar.1178@osu.edu">kumar.1178@osu.edu</a>
+        <a href="tel:+13808955433">+1 (380) 895-5433</a>
+        <a href="https://github.com/Arnavvvkumar">GitHub</a>
+        <a href="https://www.linkedin.com/in/arnav-kumar-a269a1253/">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
